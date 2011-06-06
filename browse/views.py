@@ -2,7 +2,7 @@
 from django.http import HttpResponse, Http404,HttpResponseRedirect,HttpResponseNotFound
 from django.template import Context,loader,RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
-from appster.browse.models import *
+from browse.models import *
 
 def index(request):
     profile = Category.objects.all()

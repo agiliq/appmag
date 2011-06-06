@@ -1,5 +1,5 @@
 from django.contrib import admin
-from appster.browse.models import *
+from browse.models import *
 
 admin.site.register(Developer)
 admin.site.register(Thumbnail)
