@@ -6,8 +6,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'appster.views.home', name='home'),
-    # url(r'^appster/', include('appster.foo.urls')),
+    url(r'^$', 'appster.browse.views.index'),
+    url(r'^', include('appster.browse.urls')),
+        # url(r'^appster/', include('appster.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

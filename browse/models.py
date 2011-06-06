@@ -15,7 +15,8 @@ PLATFORMS = (
 	(('WM'),('Windows Mobile')),
 	    )
 class Developer(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField("Developer", max_length=200)
+    slug = models.CharField("Slug", max_length=50)
     def __unicode__(self):
         return self.name
 
@@ -26,12 +27,19 @@ class Thumbnail(models.Model):
 	
 class Device(models.Model):
     name = models.CharField("Device Name",max_length=50)
+    slug = models.CharField("Slug", max_length=50)
     def __unicode__(self):
         return self.name
-class Catagory(models.Model):
+class Category(models.Model):
     name = models.CharField("Catagory",max_length=100)
+    slug = models.CharField("Slug", max_length=50)
     def __unicode__(self):
-	return self.name
+	return self.slug
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+        
+	
 class App(models.Model):
     title = models.CharField("Title", max_length=150)
     description = models.TextField("Description", max_length=10000)
@@ -39,10 +47,10 @@ class App(models.Model):
     developer = models.ForeignKey(Developer,verbose_name="Developer",null=True,blank=True)
     url = models.URLField("Link")
     logo = models.ImageField("Logo",upload_to='logos',null = True, blank = True)
-    thumbnails = models.ManyToManyField(Thumbnail, null = True)
+    thumbnails = models.ManyToManyField(Thumbnail, null = True, blank = True)
     price = models.CharField("Price",max_length =10,default="FREE",null=True,blank=True)
-    device = models.ForeignKey(Device)
-    catagory = models.ForeignKey(Catagory)
+    device = models.ForeignKey(Device, related_name="device")
+    category = models.ForeignKey(Category, related_name="category")
     platform = models.CharField("Platform",choices=PLATFORMS,max_length=2)
     def __unicode__(self):
         return self.title
