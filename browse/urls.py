@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 
 # Uncomment the next two lines to enable the admin:
-from appster.browse.views import *
+from browse.views import *
 
 urlpatterns = patterns('',
     url(r'^$', 'browse.views.index', name='index'),
