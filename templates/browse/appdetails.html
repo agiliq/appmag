@@ -1,0 +1,15 @@
+ Browse by <a href="/browse/">Category</a>&nbsp; <a href = "/device/">Device</a>&nbsp; <a href = "/developer/">Developer</a>&nbsp; <a href = "/platform/">Platform</a>
+<br>
+{% for p in profile%}
+Title <a href ="/app/{{p.id}}">{{p.title}} </a><br>
+Description : {{p.description}}<br>
+Rating : {{p.rating}}<br>
+Developer : {{p.developer}}<a href="/developer/{{p.developer.slug}}">more from this developer</a><br>
+{% autoescape on %}
+    {{ body }}
+Get it from <a href ="{{p.url}}">here</a><br>    {% endautoescape %}
+{{p.price}}<br>
+{{p.device}}<br>
+Category : <a href ="/category/{{p.category.slug}}">{{p.category}}</a><br>
+
+{%endfor%}

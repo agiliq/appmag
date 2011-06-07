@@ -1,0 +1,5 @@
+ Now browsing by <a href="/developer/">Developer</a><br>Browse by <a href = "/device/">Device</a>&nbsp;<a href = "/browse/">Category</a>&nbsp;<a href = "/platform/">Platform</a>
+<br>
+{% for p in profile%}
+<a href ="/app/{{p.slug}}">{{p}} </a><br>
+{%endfor%}

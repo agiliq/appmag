@@ -21,7 +21,7 @@ class Developer(models.Model):
         return self.name
 
 class Thumbnail(models.Model):
-    image = models.ImageField("Thumbnail",upload_to='thumbnails')
+    image = models.URLField("Thumbnail")
     def __unicode__(self):
         return self.image.name
 	
@@ -42,11 +42,12 @@ class Category(models.Model):
 	
 class App(models.Model):
     title = models.CharField("Title", max_length=150)
+    slug = models.CharField("Slug", max_length=50,unique=True)
     description = models.TextField("Description", max_length=10000)
     rating = models.IntegerField("Rating",max_length=1,choices = RATINGS, default= 0,null=True,blank=True)
     developer = models.ForeignKey(Developer,verbose_name="Developer",null=True,blank=True)
     url = models.URLField("Link")
-    logo = models.ImageField("Logo",upload_to='logos',null = True, blank = True)
+    logo = models.URLField("Logo")
     thumbnails = models.ManyToManyField(Thumbnail, null = True, blank = True)
     price = models.CharField("Price",max_length =10,default="FREE",null=True,blank=True)
     device = models.ForeignKey(Device, related_name="device")
