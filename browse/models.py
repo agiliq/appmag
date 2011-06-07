@@ -23,7 +23,7 @@ class Developer(models.Model):
 class Thumbnail(models.Model):
     image = models.URLField("Thumbnail")
     def __unicode__(self):
-        return self.image.name
+        return self.image
 	
 class Device(models.Model):
     name = models.CharField("Device Name",max_length=50)
@@ -41,8 +41,8 @@ class Category(models.Model):
         
 	
 class App(models.Model):
-    title = models.CharField("Title", max_length=150)
-    slug = models.CharField("Slug", max_length=50,unique=True)
+    title = models.CharField("Title", max_length=250)
+    slug = models.CharField("Slug", max_length=250)
     description = models.TextField("Description", max_length=10000)
     rating = models.IntegerField("Rating",max_length=1,choices = RATINGS, default= 0,null=True,blank=True)
     developer = models.ForeignKey(Developer,verbose_name="Developer",null=True,blank=True)
@@ -50,7 +50,7 @@ class App(models.Model):
     logo = models.URLField("Logo")
     thumbnails = models.ManyToManyField(Thumbnail, null = True, blank = True)
     price = models.CharField("Price",max_length =10,default="FREE",null=True,blank=True)
-    device = models.ForeignKey(Device, related_name="device")
+    device = models.ManyToManyField(Device, related_name="device")
     category = models.ForeignKey(Category, related_name="category")
     platform = models.CharField("Platform",choices=PLATFORMS,max_length=2)
     def __unicode__(self):
