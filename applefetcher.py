@@ -6,9 +6,12 @@ data = json.loads(image)
 
         
 for datum in data:
-    tmp = datum["category"].pop()    
-    slugy =slugify(tmp)
-    cat, created = Category.objects.get_or_create(name = tmp,slug=slugy)
+    try:
+        tmp = datum["category"].pop()    
+        slugy =slugify(tmp)
+        cat, created = Category.objects.get_or_create(name = tmp,slug=slugy)
+    except:
+        pass
     try:
         tmp =datum["developer"].pop()
     except:

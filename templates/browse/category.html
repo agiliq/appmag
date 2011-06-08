@@ -1,3 +1,6 @@
+{%load pagination_tags %}
+{% autopaginate 25 %}
 {% for p in profile%}
 <a href ="/browse/{{p.slug}}">{{p}} </a><br>
 {%endfor%}
+{% paginate %}

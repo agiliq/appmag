@@ -44,7 +44,7 @@ class App(models.Model):
     title = models.CharField("Title", max_length=250)
     slug = models.CharField("Slug", max_length=250)
     description = models.TextField("Description", max_length=10000)
-    rating = models.IntegerField("Rating",max_length=1,choices = RATINGS, default= 0,null=True,blank=True)
+    rating = models.CharField("Rating", max_length=4,default= '0',null=True,blank=True)
     developer = models.ForeignKey(Developer,verbose_name="Developer",null=True,blank=True)
     url = models.URLField("Link")
     logo = models.URLField("Logo")

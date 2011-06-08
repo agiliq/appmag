@@ -57,7 +57,7 @@ def get_list_platform(request,slug):
     return HttpResponse(t.render(c))
 def get_app(request,id):
     #print slug
-    profile = App.objects.filter(slug=id)
+    profile = App.objects.filter(slug=id)[:1]
     t = loader.get_template('browse/appdetails.html')
     c = RequestContext(request,{'profile':profile})
     return HttpResponse(t.render(c))

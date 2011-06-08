@@ -1,9 +1,12 @@
- Now browsing by <a href="/platfrom/">Platform</a><br>Browse by <a href = "/device/">Device</a>&nbsp;<a href = "/developer/">Developer</a>&nbsp;<a href = "/browse/">Category</a>
+ {% load pagination_tags %}Now browsing by <a href="/platfrom/">Platform</a><br>Browse by <a href = "/device/">Device</a>&nbsp;<a href = "/developer/">Developer</a>&nbsp;<a href = "/browse/">Category</a>
 <br>
 {%if profile %}
-{% for p in profile%}
-<a href ="/app/{{p.slug}}">{{p}} </a><br>
-{%endfor%}
+   {% autopaginate profile 25%}
+     {% for p in profile%}
+<img src= "{{p.logo}}"/><a href ="/app/{{p.slug}}">{{p}} </a><br>
+         {%endfor%}
+         {% paginate %}
+         
 {% else %}
 Sorry.. No apps found!!
 {%endif%}

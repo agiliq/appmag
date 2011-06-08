@@ -1,15 +1,22 @@
  Browse by <a href="/browse/">Category</a>&nbsp; <a href = "/device/">Device</a>&nbsp; <a href = "/developer/">Developer</a>&nbsp; <a href = "/platform/">Platform</a>
 <br>
+{% autoescape off %}
 {% for p in profile%}
-Title <a href ="/app/{{p.id}}">{{p.title}} </a><br>
-Description : {{p.description}}<br>
+<img src="{{p.logo}}"/>
+<br><b>Title </b><a href ="/app/{{p.id}}">{{p.title}} </a><br>
+<b>Description </b><br> {{p.description}}<br>
 Rating : {{p.rating}}<br>
-Developer : {{p.developer}}<a href="/developer/{{p.developer.slug}}">more from this developer</a><br>
-{% autoescape on %}
+Developer : {{p.developer}}<a href="/developer/{{p.developer.slug}}">   more from this developer</a><br>
     {{ body }}
-Get it from <a href ="{{p.url}}">here</a><br>    {% endautoescape %}
+Get it from <a href ="{{p.url}}">here</a><br>  
 {{p.price}}<br>
-{{p.device}}<br>
-Category : <a href ="/category/{{p.category.slug}}">{{p.category}}</a><br>
-
+Devices:{%for dev in p.device.all%}
+{{dev.name}}
+<br>
 {%endfor%}
+Category : <a href ="/category/{{p.category.slug}}">{{p.category}}</a><br>
+Screenshots:
+{%for thumb in p.thumbnails.all %}
+<img src="{{thumb.image}}"/>
+{%endfor%}
+{%endfor%}  {% endautoescape %}
