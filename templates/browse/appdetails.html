@@ -11,7 +11,7 @@ Developer : {{p.developer}}<a href="/developer/{{p.developer.slug}}">   more fro
 Get it from <a href ="{{p.url}}">here</a><br>  
 {{p.price}}<br>
 Devices:{%for dev in p.device.all%}
-{{dev.name}}
+<a href = "/device/{{dev.slug}}">{{dev.name}}</a>
 <br>
 {%endfor%}
 Category : <a href ="/category/{{p.category.slug}}">{{p.category}}</a><br>
@@ -19,4 +19,11 @@ Screenshots:
 {%for thumb in p.thumbnails.all %}
 <img src="{{thumb.image}}"/>
 {%endfor%}
-{%endfor%}  {% endautoescape %}
+{%endfor%} <br>
+More from this developer<br>
+{% for app in developerlist%}
+<a href = "/app/{{app.slug}}"><img src="{{app.logo}}"/>
+{{app.title}}<br></a>
+{%endfor%}
+
+{% endautoescape %}

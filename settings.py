@@ -1,7 +1,7 @@
 # Django settings for appster project.
 
 import os
-DEBUG = True
+DEBUG = False#True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     'taggit',
     'logging',
     'pagination',
+    'haystack',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -173,4 +174,8 @@ STATICFILES_FINDERS = ('compressor.finders.CompressorFinder')
 from markupfield.markup import DEFAULT_MARKUP_TYPES
 DEFAULT_MARKUP_TYPE = "plain"
 MARKUP_RENDERERS = DEFAULT_MARKUP_TYPES
+HAYSTACK_SITECONF = 'appsite.search_sites'
+HAYSTACK_SEARCH_ENGINE = 'xapian'
+HAYSTACK_XAPIAN_PATH = 'xapian_index'
+
 from extra_settings import *

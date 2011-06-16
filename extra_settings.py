@@ -18,10 +18,10 @@ LOG_FILE_NAME =  os.path.join(os.path.dirname(os.path.normpath(__file__)),'loggi
 
 FLOOD_TIME = 1000
 
-HAYSTACK_SITECONF = "dinette.search"
+#HAYSTACK_SITECONF = "dinette.search"
 
-HAYSTACK_SEARCH_ENGINE = 'whoosh'
+#HAYSTACK_SEARCH_ENGINE = 'whoosh'
 
-HAYSTACK_WHOOSH_PATH = os.path.join(os.path.dirname(os.path.normpath(__file__)),'index.db')
+#HAYSTACK_WHOOSH_PATH = os.path.join(os.path.dirname(os.path.normpath(__file__)),'index.db')
 
 SITE_URL = "http://127.0.0.1:8000"

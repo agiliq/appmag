@@ -58,6 +58,7 @@ def get_list_platform(request,slug):
 def get_app(request,id):
     #print slug
     profile = App.objects.filter(slug=id)[:1]
+    developerlist = App.objects.filter(developer=profile[0].developer).order_by('?')[:10]
     t = loader.get_template('browse/appdetails.html')
-    c = RequestContext(request,{'profile':profile})
+    c = RequestContext(request,{'profile':profile, 'developerlist':developerlist})
     return HttpResponse(t.render(c))
