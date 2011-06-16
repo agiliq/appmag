@@ -25,5 +25,10 @@ More from this developer<br>
 <a href = "/app/{{app.slug}}"><img src="{{app.logo}}"/>
 {{app.title}}<br></a>
 {%endfor%}
+Related Apps<br>
+{% for app in related%}
+<a href = "/app/{{app.slug}}"><img src="{{app.logo}}"/>
+{{app.title}}<br></a>
+{%endfor%}
 
 {% endautoescape %}
