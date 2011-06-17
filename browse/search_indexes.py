@@ -5,7 +5,7 @@ class AppIndex(SearchIndex):
    text = CharField(document = True, use_template = True)
    title = CharField(model_attr = "title")
 #   description = CharField(model_attr = "description")
-   developer = MultiValueField()
+#   developer = MultiValueField()
 #   developer = CharField(model_attr = "developer")
 #   device = MultiValueField()
 
@@ -13,9 +13,9 @@ class AppIndex(SearchIndex):
        return [a for a in Developer.objects.all()]
    def index_queryset(self):
        return App.objects.all()
-#class DeveloperIndex(SearchIndex):
-#   text = CharField(document = True, use_template = True)
+class DeveloperIndex(SearchIndex):
+   text = CharField(document = True, use_template = True)
+   name = CharField(model_attr = "name")
 
-
-site.register(App,AppIndex)   
-
+site.register(App, AppIndex)   
+site.register(Developer, DeveloperIndex)

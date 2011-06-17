@@ -1,5 +1,5 @@
- Now browsing by <a href="/browse/">Category</a><br>Browse by <a href = "/device/">Device</a>&nbsp;<a href = "/developer/">Developer</a>&nbsp;<a href = "/platform/">Platform</a>
+ Now browsing by <a href="{% url home%}">Category</a><br>Browse by <a href = "{% url device%}">Device</a>&nbsp;<a href = "{% url developer%}">Developer</a>&nbsp;<a href = "{% url platform%}">Platform</a>
 <br>
 {% for p in profile%}
-<a href ="/category/{{p.slug}}">{{p}} </a><br>
+<a href ="{% url getcategory p.slug %}">{{p}} </a><br>
 {%endfor%}

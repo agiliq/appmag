@@ -11,6 +11,7 @@ feeds = {
 
 
 urlpatterns = patterns('dinette.views',
+    url(r'^$','index_page',name='discuss'),
     url(r'^$','index_page',name='dinette_category'),
     url(r'^new/$','new_topics',name='dinette_new_for_user'),                         
     url(r'^active/$','active',name='dinette_active'),

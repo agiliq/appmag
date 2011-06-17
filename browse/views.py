@@ -33,33 +33,33 @@ def platform(request):
     
 def get_list_category(request,slug):
     print slug
-    profile = App.objects.filter(category__slug=slug)
+    profile = App.objects.filter(category__slug=slug).distinct()
     t = loader.get_template('browse/listcategory.html')
     c = RequestContext(request,{'profile':profile})
     return HttpResponse(t.render(c))
 def get_list_device(request,slug):
     print slug
-    profile = App.objects.filter(device__slug=slug)
+    profile = App.objects.filter(device__slug=slug).distinct()
     t = loader.get_template('browse/listdevice.html')
     c = RequestContext(request,{'profile':profile})
     return HttpResponse(t.render(c))
 def get_list_developer(request,slug):
     print slug
-    profile = App.objects.filter(developer__slug=slug)
+    profile = App.objects.filter(developer__slug=slug).distinct()
     t = loader.get_template('browse/listdeveloper.html')
     c = RequestContext(request,{'profile':profile})
     return HttpResponse(t.render(c))
 def get_list_platform(request,slug):
     #print slug
-    profile = App.objects.filter(platform=slug)
+    profile = App.objects.filter(platform=slug).distinct()
     t = loader.get_template('browse/listplatform.html')
     c = RequestContext(request,{'profile':profile})
     return HttpResponse(t.render(c))
 def get_app(request,id):
     #print slug
     profile = App.objects.filter(slug=id)[:1]
-    developerlist = App.objects.filter(developer = profile[0].developer).order_by('?')[:10]
-    related = App.objects.filter(category = profile[0].category).order_by('?')[:5]
+    developerlist = App.objects.filter(developer = profile[0].developer).order_by('?').distinct()[:5]
+    related = App.objects.filter(category = profile[0].category).filter(platform=profile[0].platform).order_by('?').distinct()[:5]
     t = loader.get_template('browse/appdetails.html')
     c = RequestContext(request,{'profile':profile, 'developerlist':developerlist,'related':related})
     return HttpResponse(t.render(c))

@@ -8,7 +8,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'browse.views.index'),
-    url(r'^search/', include('haystack.urls')),
     url(r'^', include('browse.urls')),
         # url(r'^appster/', include('appster.foo.urls')),
 
@@ -22,4 +21,5 @@ urlpatterns = patterns('',
     (r'^discuss/', include('dinette.urls')),
     (r'^accounts/', include('socialauth.urls')),
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
+    url(r'^search/', include('haystack.urls')),
 )

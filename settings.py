@@ -1,7 +1,7 @@
 # Django settings for appster project.
 
 import os
-DEBUG = False#True
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (

@@ -19,6 +19,7 @@ urlpatterns = patterns('blogango.views',
     url(r'^install/$', 'install_blog', name='blogango_install'),
     url(r'^preferences/$', 'edit_preferences', name='blogango_edit_preferences'),
 
+    url(r'^$', 'index', name='reviews'),
     url(r'^$', 'index', name='blogango_index'),
     url(r'^page/(?P<page>\d+)/$', 'index',  name='blogango_page'),
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<slug>[-\w]+)/$', 'details', name='blogango_details'),

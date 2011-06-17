@@ -1,9 +1,9 @@
 {%load pagination_tags%}
 
-Now browsing by <a href="/developer/">Developer</a><br>Browse by <a href =     "/device/">Device</a>&nbsp;<a href = "/browse/">Category</a>&nbsp;<a href ="/platform/">Platform</a>
+Now browsing by <a href="{% url developer %}">Developer</a><br>Browse by <a href = "{% url device %}">Device</a>&nbsp;<a href = "{% url home %}">Category</a>&nbsp;<a href ="{% url platform %}">Platform</a>
 <br>
 {%autopaginate profile 25 %}
 {% for p in profile%}
-<a href ="/developer/{{p.slug}}">{{p}} </a><br>
+<a href ="{% url getdeveloper p.slug %}">{{p}} </a><br>
 {%endfor%}
 {%paginate %}
