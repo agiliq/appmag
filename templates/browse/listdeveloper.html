@@ -3,6 +3,6 @@
 <br>
 {%autopaginate profile 25 %}
 {% for p in profile%}
-<img src= "{{p.logo}}"/><a href ="{% url getapplication p.slug %}">{{p}} </a><br>
+<img src= "{{p.1}}"/><a href ="{% url getapplication p.2 %}">{{p.0}} </a><br>
 {%endfor%}
 {% paginate %}

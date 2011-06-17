@@ -1,9 +1,9 @@
- {% load pagination_tags %}Now browsing by <a href="{% url platfrom %}">Platform</a><br>Browse by <a href = "{% url device %}">Device</a>&nbsp;<a href = "{% url developer %}">Developer</a>&nbsp;<a href = "{% url home %}">Category</a>
+ {% load pagination_tags %}Now browsing by <a href="{% url platform %}">Platform</a><br>Browse by <a href = "{% url device %}">Device</a>&nbsp;<a href = "{% url developer %}">Developer</a>&nbsp;<a href = "{% url home %}">Category</a>
 <br>
 {%if profile %}
    {% autopaginate profile 25%}
      {% for p in profile%}
-<img src= "{{p.logo}}"/><a href ="{% url getapplication p.slug %}">{{p}} </a><br>
+<img src= "{{p.1}}"/><a href ="{% url getapplication p.2 %}">{{p.0}} </a><br>
          {%endfor%}
          {% paginate %}
          

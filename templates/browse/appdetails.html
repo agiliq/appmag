@@ -22,13 +22,13 @@ Screenshots:
 {%endfor%} <br>
 More from this developer<br>
 {% for app in developerlist%}
-<a href = "/app/{{app.slug}}"><img src="{{app.logo}}"/>
-{{app.title}}<br></a>
+<a href = "{% url getapplication app.2 %}"><img src="{{app.1}}"/>
+{{app.0}}<br></a>
 {%endfor%}
 Related Apps<br>
 {% for app in related%}
-<a href = "/app/{{app.slug}}"><img src="{{app.logo}}"/>
-{{app.title}}<br></a>
+<a href = "{% url getapplication app.2 %}"><img src="{{app.1}}"/>
+{{app.0}}<br></a>
 {%endfor%}
 
 {% endautoescape %}

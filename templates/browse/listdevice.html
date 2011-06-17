@@ -3,6 +3,6 @@ Now browsing by <a href="{% url device %}">Device</a><br>Browse by <a href = "{%
 <br>
 {% autopaginate profile 25 %}
 {% for p in profile%}
-<a href ="{% url getapplication p.slug %}">{{p}} </a><br>
+<img src = "{{p.1}}"/><a href ="{% url getapplication p.2 %}">{{p.0}} </a><br>
 {%endfor%}
 {%paginate %}
