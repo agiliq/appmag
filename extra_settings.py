@@ -20,7 +20,7 @@ FLOOD_TIME = 1000
 
 #HAYSTACK_SITECONF = "dinette.search"
 
-#HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_SEARCH_ENGINE = 'dummy'
 
 #HAYSTACK_WHOOSH_PATH = os.path.join(os.path.dirname(os.path.normpath(__file__)),'index.db')
 
