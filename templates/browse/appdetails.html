@@ -2,21 +2,21 @@
 <html>
 
 <head>
-<link rel="stylesheet" type="text/css" href="css/reset.css" />
-<link rel="stylesheet" type="text/css" href="css/print.css" />
-<link rel="stylesheet" type="text/css" href="css/typography.css" />
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/reset.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/typography.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/style.css" />
+
 <link href='http://fonts.googleapis.com/css?family=Tinos:regular,bold,bolditalic&v1' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-<div id="app_detail">
 Browse by <a href="/browse/">Category</a>&nbsp; <a href = "/device/">Device</a>&nbsp; <a href = "/developer/">Developer</a>&nbsp; <a href = "/platform/">Platform</a>
+<div id="app_detail">
 <div id="app_header">
 {% autoescape off %}
 {% for p in profile%}
 <div id="app_title"><h1>
-<a href ="/app/{{p.id}}">{{p.title}} </a> <span>
+<a href ="/app/{{p.slug}}">{{p.title}} </a> <span>
 {{p.developer}}<a href="/developer/{{p.developer.slug}}">   more from this developer</a>
 </span>
 </h1>
@@ -24,29 +24,33 @@ Browse by <a href="/browse/">Category</a>&nbsp; <a href = "/device/">Device</a>&
 <div id="rate"></div>       
 <div class="clear"></div>
 <div id="appinfo">
-<div id="appicon"><img src="{{p.logo}}"/></div>
+<div id="appicon"><img src="{{p.logo}}" width = "130" height = "130"/></div>
 <div id="infolist">
 <ul>
 <li><span >Category : </span> {{p.category}}</li>
 <li><span >Released : </span>Lifestyle</li>
 <li><span >Rating : </span>{{p.rating}}</li>
 <li><span >Language : </span>Lifestyle</li>
-<li><span >Devices : </span>Lifestyle</li>
+<li><span >Devices : </span>
+{%for dev in p.device.all%}
+   <a href = "/device/{{dev.slug}}">{{dev.name}}</a>
+{%endfor%}
 <li><span >Developer : </span>{{p.developer}}</li>
 <li><span >Current version : </span >Lifestyle</li>
-<li><span >Download it : </span>Lifestyle</li>
+<li><span >Download it : </span><a href ="{{p.url}}">here</a></li>
 </ul>
 </div>
 
 </div>
-<div id="price">Price : $99</div>
+<div id="price">Price : {{p.price}}</div>
 <div class="clear"></div>
 </div>
 <div id="app_description">
 <h2>DESCRIPTION :</h2>
-<p>Recipes from the award-winning food site Epicurious.com are now available on your iPhone and your iPad. Search more than 30,000 delicious, professionally created recipes from Bon Appetit, Gourmet, Self, and renowned chefs and cookbooks. Save your favorite recipes, and sync your Favorites list in the app with your online Recipe Box at Epicurious.com. You can also create shopping lists, and e-mail recipes and shopping lists to yourself and friends. Plus, get access to authoritative recipe reviews from Epicurious members.</p>
-<p>Recipes from the award-winning food site Epicurious.com are now available on your iPhone and your iPad. Search more than 30,000 delicious, professionally created recipes from Bon Appetit, Gourmet, Self, and renowned chefs and cookbooks. Save your favorite recipes, and sync your Favorites list in the app with your online Recipe Box at Epicurious.com. You can also create shopping lists, and e-mail recipes and shopping lists to yourself and friends. Plus, get access to authoritative recipe reviews from Epicurious members.</p>
+{{p.description}}
 </div>
+
+
 <div>jquery slider comes here</div>
 
 </div>
@@ -61,13 +65,6 @@ Browse by <a href="/browse/">Category</a>&nbsp; <a href = "/device/">Device</a>&
 
 
 <br>
-    {{ body }}
-Get it from <a href ="{{p.url}}">here</a><br>  
-{{p.price}}<br>
-Devices:{%for dev in p.device.all%}
-<a href = "/device/{{dev.slug}}">{{dev.name}}</a>
-<br>
-{%endfor%}
 Category : <a href ="/category/{{p.category.slug}}">{{p.category}}</a><br>
 Screenshots:
 {%for thumb in p.thumbnails.all %}

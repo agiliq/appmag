@@ -33,7 +33,6 @@ def platform(request):
     c =RequestContext(request,{'profile':profile})
     return HttpResponse(t.render(c))
     
-<<<<<<< HEAD
 def get_list_category(request,slug):
     print slug
     profile = App.objects.values_list('title','logo','slug').filter(category__slug=slug).distinct()
@@ -55,31 +54,8 @@ def get_list_developer(request,slug):
 def get_list_platform(request,slug):
     #print slug
     profile = App.objects.values_list('title','logo','slug').filter(slug__isnull=False).exclude(slug__exact='').filter(platform=slug).distinct()
-=======
-def get_list_category(request, slug):
-    profile = App.objects.filter(category__slug=slug).distinct()
-    t = loader.get_template('browse/listcategory.html')
-    c = RequestContext(request,{'profile':profile})
-    return HttpResponse(t.render(c))
-
-def get_list_device(request, slug):
-    profile = App.objects.filter(device__slug=slug).distinct()
-    t = loader.get_template('browse/listdevice.html')
-    c = RequestContext(request,{'profile':profile})
-    return HttpResponse(t.render(c))
-
-def get_list_developer(request, slug):
-    profile = App.objects.filter(developer__slug=slug).distinct()
-    t = loader.get_template('browse/listdeveloper.html')
-    c = RequestContext(request,{'profile':profile})
-    return HttpResponse(t.render(c))
-
-def get_list_platform(request, slug):
-    profile = App.objects.filter(platform=slug).distinct()
->>>>>>> 0ea3b386b0fc5f00e477cac0afb2699989b8a43b
     t = loader.get_template('browse/listplatform.html')
     c = RequestContext(request,{'profile':profile})
-    return HttpResponse(t.render(c))
 
 def get_app(request,id):
     profile = App.objects.filter(slug=id)[:1]
