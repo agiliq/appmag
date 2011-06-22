@@ -1,25 +1,4 @@
-# Django settings for appster project.
-
 import os
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
-
-MANAGERS = ADMINS
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'appster',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -104,23 +83,16 @@ MIDDLEWARE_CLASSES = (
 )
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
-"django.contrib.auth.context_processors.auth",
-"django.core.context_processors.debug",
-"django.core.context_processors.i18n",
-"django.core.context_processors.media",
-#"django.core.context_processors.static",
-"django.contrib.messages.context_processors.messages"
-
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    #"django.core.context_processors.static",
+    "django.contrib.messages.context_processors.messages"
     )
+
 ROOT_URLCONF = 'appsite.urls'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    "/home/atm/appsite/templates/",
-    "/home/agiliq/Work/appsite/templates/"
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -129,22 +101,23 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'browse',
+    
     'socialauth',
     'compressor',
-    'google_analytics',
+    #'google_analytics',
     'sorl.thumbnail',
     'openid_consumer',    
+    'pagination',
+    'haystack',
+    
+    'browse',
     'dinette',
     'blogango',
     'taggit',
     'logging',
-    'pagination',
-    'haystack',
+    
 )
 
 # A sample logging configuration. The only tangible logging
@@ -169,13 +142,21 @@ LOGGING = {
         },
     }
 }
+
 COMPRESS_ROOT = STATIC_ROOT
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder')
+
 from markupfield.markup import DEFAULT_MARKUP_TYPES
 DEFAULT_MARKUP_TYPE = "plain"
 MARKUP_RENDERERS = DEFAULT_MARKUP_TYPES
+
 HAYSTACK_SITECONF = 'appsite.search_sites'
 HAYSTACK_SEARCH_ENGINE = 'xapian'
 HAYSTACK_XAPIAN_PATH = 'xapian_index'
 
-from extra_settings import *
+try:
+    from extra_settings import *
+    from local_settings import *
+except ImportError:
+    print "Some required settings are missing"
+    raise

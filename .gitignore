@@ -2,3 +2,6 @@
 logos/*
 thumbnails/*
 logs/*
+data.db
+local_settings.py
+*.komodoproject
