@@ -6,4 +6,12 @@ containers
 #app_detail{ width:860px; display:block; background:URL("../images/title_bg.gif") repeat-x; padding:0px 50px; }
 #app_detail #app_header{ width:860px; display:block;}
 #app_detail #app_header #app_title {  width:840px; display:block;}
-#app_detail #app_header #app_title  h1{font:24px arial; line-height:68px;}
+#app_detail #app_header #app_title  h1{font-family: 'Tinos', arial, serif;   font-size:24px; line-height:58px; width:720px; float:left; color:#fff; padding-top:10px; }
+#app_detail #app_header #app_title  h1 span{font-family: Times, arial, serif; font-size:14px; font-style:italic; color:#414546; font-weight:bold; padding-left:15px; text-shadow: -1px 1px 1px #B9E75B;}
+#app_detail #app_header #rate{width:115px; float:right; height:67px; background:URL("../images/rate_badge.png") no-repeat; }
+#app_detail #app_header #appinfo{width:860px; display:block;}
+#app_detail #app_header #appinfo #appicon{width:130px; height:130px; float:left;}
+#app_detail #app_header #appinfo #infolist{width:730px; height:130px; float:left;}
+
+.clear{clear:both;}
+
