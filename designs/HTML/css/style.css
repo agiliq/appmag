@@ -16,6 +16,8 @@ CONTAINERS
 #app_detail #app_header #appinfo #infolist ul li{border-bottom:1px solid #DBDBDB; display:inline; width:300px; float:left; margin:0 0 0 20px; font:bold 12px  Arial, serif; line-height:30px; color:#414546; }
 #app_detail #app_header #appinfo #infolist ul li span{color:#648E0E; text-transform:uppercase;}
 #app_detail #app_description{margin:15px 0 15px 0; display:block;}
+#price{width:130px; float:left; font:bold 16px Arial,serif; color:#444849; text-align:center;  text-transform:uppercase; margin-top:10px;}
+
 
 .clear{clear:both;}
 
