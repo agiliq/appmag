@@ -1,6 +1,6 @@
 /* -----------------------------------------------------------
 
-containers
+CONTAINERS
 
 -------------------------------------------------------------- */
 #app_detail{ width:860px; display:block; background:URL("../images/title_bg.gif") repeat-x; padding:0px 50px; }
@@ -12,6 +12,11 @@ containers
 #app_detail #app_header #appinfo{width:860px; display:block;}
 #app_detail #app_header #appinfo #appicon{width:130px; height:130px; float:left;}
 #app_detail #app_header #appinfo #infolist{width:730px; height:130px; float:left;}
+#app_detail #app_header #appinfo #infolist ul{}
+#app_detail #app_header #appinfo #infolist ul li{border-bottom:1px solid #DBDBDB; display:inline; width:300px; float:left; margin:0 0 0 20px; font:bold 12px  Arial, serif; line-height:30px; color:#414546; }
+#app_detail #app_header #appinfo #infolist ul li span{color:#648E0E; text-transform:uppercase;}
+#app_detail #app_description{margin:15px 0 15px 0; display:block;}
 
 .clear{clear:both;}
+
 
