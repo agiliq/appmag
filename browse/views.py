@@ -51,7 +51,7 @@ def get_list_developer(request,slug):
     return HttpResponse(t.render(c))
 def get_list_platform(request,slug):
     #print slug
-    profile = App.objects.values_list('title','logo','slug').filter(platform=slug).distinct()
+    profile = App.objects.values_list('title','logo','slug').filter(slug__isnull=False).exclude(slug__exact='').filter(platform=slug).distinct()
     t = loader.get_template('browse/listplatform.html')
     c = RequestContext(request,{'profile':profile})
     return HttpResponse(t.render(c))

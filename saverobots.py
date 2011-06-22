@@ -6,18 +6,23 @@ data = json.loads(image)
 
         
 for datum in data:
-    tmp = datum["category"].pop()    
-    slugy =slugify(tmp)
-    cat, created = Category.objects.get_or_create(name = tmp,slug=slugy)
-    try:
-        tmp =datum["developer"].pop()
-    except:
-        tmp = "None"
-    devel, created = Developer.objects.get_or_create(name = tmp, slug =slugify(tmp))
     obj = App()
     try:
-        obj.title = datum["name"].pop()
+        tmp =datum["developer"].pop()
+        devel, created = Developer.objects.get_or_create(name = tmp, slug =slugify(tmp))
+        obj.developer = devel
     except:
+        devel, created = Developer.objects.get_or_create(name = "Some Developer", slug =slugify("somedev"))
+        obj.developer = devel
+        print "Caught developer"
+    try:
+        tmp = datum["category"].pop()    
+        slugy =slugify(tmp)
+        obj.title = datum["name"].pop()
+        cat, created = Category.objects.get_or_create(name = tmp,slug=slugy)
+        obj.category = cat
+    except:
+        print "Caught You category"
         continue
     obj.slug = slugify(obj.title)
     obj.description = datum["desc"].pop()
@@ -25,8 +30,6 @@ for datum in data:
     obj.logo = datum["logo"].pop()
     obj.price = datum["price"].pop()
     obj.platform = 	'AN'
-    obj.category = cat
-    obj.developer = devel
     obj.rating = datum["rating"].pop()[8:11]
     obj.save()
     
