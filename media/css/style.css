@@ -3,6 +3,16 @@
 CONTAINERS
 
 -------------------------------------------------------------- */
+#base{width:960px; background:#fff; display:block;}
+
+
+
+
+
+
+
+
+
 #app_detail{ width:860px; display:block; background:URL("../images/title_bg.gif") repeat-x; padding:0px 50px; }
 #app_detail #app_header{ width:860px; display:block;}
 #app_detail #app_header #app_title {  width:840px; display:block;}
