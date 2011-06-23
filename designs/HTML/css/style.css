@@ -9,13 +9,13 @@ CONTAINERS
 #app_detail #app_header #app_title  h1{font-family: 'Tinos', arial, serif;   font-size:24px; line-height:58px; width:720px; float:left; color:#fff; padding-top:10px; }
 #app_detail #app_header #app_title  h1 span{font-family: Times, arial, serif; font-size:14px; font-style:italic; color:#414546; font-weight:bold; padding-left:15px; text-shadow: -1px 1px 1px #B9E75B;}
 #app_detail #app_header #rate{width:115px; float:right; height:67px; background:URL("../images/rate_badge.png") no-repeat; }
-#app_detail #app_header #appinfo{width:860px; display:block;}
-#app_detail #app_header #appinfo #appicon{width:130px; height:130px; float:left;}
-#app_detail #app_header #appinfo #infolist{width:730px; height:130px; float:left;}
-#app_detail #app_header #appinfo #infolist ul{}
-#app_detail #app_header #appinfo #infolist ul li{border-bottom:1px solid #DBDBDB; display:inline; width:300px; float:left; margin:0 0 0 20px; font:bold 12px  Arial, serif; line-height:30px; color:#414546; }
-#app_detail #app_header #appinfo #infolist ul li span{color:#648E0E; text-transform:uppercase;}
-#app_detail #app_description{margin:15px 0 15px 0; display:block;}
+#app_detail #appinfo{width:30%; display:block; float:left;  }
+#app_detail #appinfo #appicon{width:130px; height:130px; float:left;}
+#app_detail #appinfo #infolist{width:100%; float:left;}
+#app_detail #appinfo #infolist ul{margin:0px; padding:0px; clear:both;}
+#app_detail #appinfo #infolist ul li{border-bottom:1px solid #DBDBDB; display:block; width:80%; float:left; margin:0px 20px 0px 0px; font:bold 12px  Arial, serif; line-height:30px; color:#414546; }
+#app_detail #appinfo #infolist ul li span{color:#648E0E; text-transform:uppercase;}
+#app_detail #app_description{margin:15px 0 15px 0; display:block; width:70%; float:right;}
 #price{width:130px; float:left; font:bold 16px Arial,serif; color:#444849; text-align:center;  text-transform:uppercase; margin-top:10px;}
 
 
