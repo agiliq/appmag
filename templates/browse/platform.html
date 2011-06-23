@@ -1,11 +1,36 @@
 {%load pagination_tags %}
 
-Now browsing by <a href="{% url platform %}">Platform</a><br>Browse by <a href = "{% url home %}">Category</a>&nbsp;<a href = "{% url developer%}">Developer</a>&nbsp;<a href = "{% url device %}">Device</a>
-<br>
+<!DOCTYPE HTML>
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/reset.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/typography.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/style.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/buttons.css" />
+<link href='http://fonts.googleapis.com/css?family=Tinos:regular,bold,bolditalic&v1' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+	<div id="homebase">
+	<div>App Mag</div>
+		<ul id="crumbs">
+			<li><a href = "{% url home %}">Home</a></li>
+			<li><a href = "{% url developer%}">Developer</a></li>
+			<li><a href = "{% url device %}">Discuss</a></li>
+			<!--<li><a href ="/search/">Now browsing by Platform</a></li>-->
+			<li>Platform</li>
+		</ul>
+		<div id="platforms_list">
+		{%for p in profile%}
+		<a href ="{% url getplatform p.0 %}">{{p.1}} </a><br>
+		{%endfor%}
+		</div>
+	</div>
+</body>
+</html>
 
 
 {%autopaginate profile 25 %}
-{%for p in profile%}
-<a href ="{% url getplatform p.0 %}">{{p.1}} </a><br>
-{%endfor%}
+
 {%paginate%}

@@ -3,14 +3,22 @@
 CONTAINERS
 
 -------------------------------------------------------------- */
-#base{width:960px; background:#fff; display:block;}
+
+body{background:URL("../images/bg.png"); height:101%;}
+#base{width:960px; background:#fff; display:block; margin:0px auto;}
+#homebase{width:960px; background:#fff; display:block; margin:0px auto; }
 
 
 
+#platforms_list { width:90%; margin:0px auto; dosplay:block;}
+#platforms_list ul{margin:0px; padding:0px; clear:both;}
+#platforms_list ul li{border-bottom:1px solid #DBDBDB; display:block; width:80%; margin:0px 20px 0px 0px; font:bold 12px  Arial, serif; line-height:30px; color:#414546; }
 
+/* -----------------------------------------------------------
 
+PLATFORM
 
-
+-------------------------------------------------------------- */
 
 
 #app_detail{ width:860px; display:block; background:URL("../images/title_bg.gif") repeat-x; padding:0px 50px; }
