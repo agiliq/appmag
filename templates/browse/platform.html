@@ -1,7 +1,6 @@
 {%load pagination_tags %}
 
 <!DOCTYPE HTML>
-<!DOCTYPE HTML>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/reset.css" />
@@ -15,9 +14,10 @@
 	<div id="homebase">
 	<div>App Mag</div>
 		<ul id="crumbs">
-			<li><a href = "{% url home %}">Home</a></li>
+			<li>Browse by :</li>
+			<!--<li><a href = "{% url home %}">Home</a></li>-->
 			<li><a href = "{% url developer%}">Developer</a></li>
-			<li><a href = "{% url device %}">Discuss</a></li>
+			<li><a href = "{% url device %}">Device</a></li>
 			<!--<li><a href ="/search/">Now browsing by Platform</a></li>-->
 			<li>Platform</li>
 		</ul>

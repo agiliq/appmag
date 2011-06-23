@@ -1,9 +1,28 @@
  {%load pagination_tags %}
- 
- Now browsing by <a href="{% url home %}">Category</a><br>Browse by <a href = "{% url device %}">Device</a>&nbsp;<a href = "{% url developer %}">Deveoper</a>&nbsp;<a href = "{% url platform %}">Platform</a>
-<br>
+ <!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/reset.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/typography.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/style.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/buttons.css" />
+<link href='http://fonts.googleapis.com/css?family=Tinos:regular,bold,bolditalic&v1' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+	<div id="homebase">
+	<div>App Mag</div>
+		<ul id="crumbs">
+			<li>Browse by :</li>
+			<li><a href = "{% url device %}">Device</a></li>
+			<li><a href = "{% url developer %}">Deveoper</a></li>
+			<li><a href = "{% url platform %}">Platform</a></li>
+			<li><a href="{% url home %}">Category</a></li>
+		</ul>
+
 {% autopaginate profile 25%}
 {% for p in profile%}
 <img src= "{{p.1}}"/><a href ="{% url getapplication p.2 %}">{{p.0}} </a><br>
 {%endfor%}
 {% paginate %}
+</div>
