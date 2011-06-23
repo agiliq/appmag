@@ -9,13 +9,25 @@
 			<li><a href ="{% url discuss %}">Discuss</a></li>
 			<li><a href ="/search/">Search</a></li>
 		</ul>
-		<div> 
-			<div>mobile 1</div>
-			<div>mobile 2</div>
-			<div>mobile 3</div>
-			<div>mobile 4</div>			
+		<div id="mobile_platforms"> 
+			<div class="indi_mobile">
+				<div class="mobilogo"><img src="{{MEDIA_URL}}images/apple_icon.png" width="100px"/></div>
+				iPhone
+			</div>
+			<div class="indi_mobile">
+				<div class="mobilogo"><img src="{{MEDIA_URL}}images/android_icon.png" width="100px"/></div>
+				Android
+			</div>
+			<div class="indi_mobile">
+				<div class="mobilogo"><img src="{{MEDIA_URL}}images/blackberry_icon.png" width="100px"/></div>
+				Blackberry
+			</div>
+			<div class="indi_mobile">
+				<div class="mobilogo"><img src="{{MEDIA_URL}}images/windows_icon.png" width="100px"/></div>
+				Windows Phone
+			</div>		
+			<div class="clear"></div>			
 		</div>
-		
-
+		<br/><br/>
 	</div>
 {% endblock %}
