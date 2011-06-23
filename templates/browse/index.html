@@ -10,10 +10,22 @@
 
 <body>
 	<div id="homebase">
-		<br><a href = "{% url reviews %}">>Reviews</a>
-		<br><a href ="{% url home %}">>Browse Apps</a>
-		<br><a href ="{% url discuss %}">>Discuss</a>
-		<br><a href ="/search/">>Search</a>
+		<div>App Mag</div>
+		<ul id="crumbs">
+			<li>Browse by :</li>
+			<li><a href = "{% url reviews %}">Reviews</a></li>
+			<li><a href ="{% url home %}">Browse Apps</a></li>
+			<li><a href ="{% url discuss %}">Discuss</a></li>
+			<li><a href ="/search/">Search</a></li>
+		</ul>
+		<div> 
+			<div>mobile 1</div>
+			<div>mobile 2</div>
+			<div>mobile 3</div>
+			<div>mobile 4</div>			
+		</div>
+		
+
 	</div>
 </body>
 </html>
