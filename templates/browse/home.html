@@ -10,9 +10,16 @@
 			<li><a href = "{% url platform %}">Platform</a></li>
 			<li>Category</li>
 		</ul>
+		<div class="listing">
+			<ul>
+			{% for p in profile%}
 
-		{% for p in profile%}
-		<a href ="{% url getcategory p.slug %}">{{p}} </a><br>
-		{%endfor%}
+				<li>
+					<a href ="{% url getcategory p.slug %}">{{p}} </a><br>
+				</li>
+
+			{%endfor%}
+			</ul>
+		</div>
 
 {% endblock %}

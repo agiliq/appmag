@@ -48,25 +48,38 @@ PLATFORM
 #app_detail #app_description{margin:15px 0 15px 0; display:block; width:70%; float:right;}
 #price{width:130px; float:left; font:bold 16px Arial,serif; color:#444849; text-align:center;  text-transform:uppercase; margin-top:10px;}
 
+/* -----------------------------------------------------------
 
+SEARCH BAR
+
+-------------------------------------------------------------- */
 #searchbar{width:450px; margin:0px auto; -webkit-border-radius:15px; -moz-border-radius:15px; padding:15px; background:#ECECEC; margin-top:15px; text-align:center;}
 #searchbar_top{width:450px;  -webkit-border-radius:15px; -moz-border-radius:15px; padding:15px; background:#ECECEC; margin-top:15px; text-align:center; float:right; margin-right:20px;}
 
 .matrix_grid{width:100%; margin:0px auto;}
-.matrix_grid ul{}
+.matrix_grid ul{ text-decoration:none;}
+.matrix_grid ul img{text-decoration:none;}
 .matrix_grid ul li{ width:190px; display:inline; float:left; border:1px solid #ccc; margin:10px; text-align:center; -moz-border-radius:15px; -webkit-border-radius:15px; 
 background:#ECECEC; padding:15px 0px 10px 0px;	
 -webkit-transition: background 1000ms ease-in 0.1s;     
 -moz-transition: background 1000ms ease-in 0.1s;
 -o-transition: background 1000ms ease-in 0.1s;
 transition: background 1000ms ease-in 0.1s; 
-cursor:pointer;min-height:190px;}
+cursor:pointer;min-height:190px; font:bold 12px Arial,serif; text-decoration:none;}
 	
 .matrix_grid ul li:hover{ width:190px; display:inline; float:left; border:1px solid #ccc; margin:10px; text-align:center; -moz-border-radius:15px; -webkit-border-radius:15px; background:#4C4C4C; padding:15px 0px 10px 0px; -webkit-transition: background 500ms ease-in 0.1s; /* property duration timing-function delay */
     -moz-transition: background 500ms ease-in 0.1s;
     -o-transition: background 500ms ease-in 0.1s;
-    transition: background 500ms ease-in 0.1s; }
+    transition: background 500ms ease-in 0.1s; text-decoration:none;}
+.listing{}
+.listing ul{ margin:20px;}
+.listing ul li{ list-style-type:none; line-height:18px; background:URL("../images/bullet.png") no-repeat; padding:0 0 0 20px;}
+.listing ul li:first-letter{text-transform:uppercase;}
+/* -----------------------------------------------------------
 
+FOOTER
+
+-------------------------------------------------------------- */
 #footer{ width:100%; display:block; background:#fff; margin:0px auto; padding:10px 0px 10px 0px; text-align:center; color:#717171; border-top:1px solid #ECECEC; margin-top:20px; clear:both;}
 
 .clear{clear:both;}

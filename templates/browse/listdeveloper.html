@@ -15,13 +15,15 @@
 		<br>-->
 		<div class="matrix_grid">
 		{%autopaginate profile 25 %}
-		{% for p in profile%}
-		<ul>
-			<li>
-				<img src= "{{p.1}}" width="140"/><a href ="{% url getapplication p.2 %}"><br/>{{p.0|slice:'40'}} </a><br>
-			</li>
-		</ul>
-		{%endfor%}
+
+			<ul>
+				{% for p in profile%}
+						<li>
+							<img src= "{{p.1}}" width="140"/><a href ="{% url getapplication p.2 %}"><br/>{{p.0|slice:'40'}} </a><br>
+						</li>			
+				{%endfor%}
+			</ul>
+
 		<div class="clear"></div>
 
 		{% paginate %}

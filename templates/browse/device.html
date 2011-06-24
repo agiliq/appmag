@@ -12,15 +12,17 @@
 			<li>Device</li>
 		</ul>
 	{%autopaginate profile 25 %}
-	<div class="matrix_grid">
-	{% for p in profile%}
-	<ul>
-	<li>
-	<a href ="{% url getdevice p.slug %}">{{p}} </a><br>
-	</li>
-	<ul>
-	{%endfor%}
-	</div>
+		<div class="listing">
+			<ul>
+				{% for p in profile%}
+
+					<li>
+					<a href ="{% url getdevice p.slug %}">{{p}} </a><br>
+					</li>
+
+				{%endfor%}
+			</ul>
+		</div>
 	{%paginate%}
 
 {% endblock %}

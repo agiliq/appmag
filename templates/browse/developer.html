@@ -14,8 +14,12 @@
 	
 
 {%autopaginate profile 25 %}
-{% for p in profile%}
-<a href ="{% url getdeveloper p.slug %}">{{p}} </a><br>
-{%endfor%}
+		<div class="listing">
+			<ul>
+				{% for p in profile%}
+				<li><a href ="{% url getdeveloper p.slug %}">{{p}} </a><br></li>
+				{%endfor%}
+			</ul>
+		</div>
 {%paginate %}
 {% endblock %}
