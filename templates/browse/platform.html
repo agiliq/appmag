@@ -12,10 +12,14 @@
 			<!--<li><a href ="/search/">Now browsing by Platform</a></li>-->
 			<li>Platform</li>
 		</ul>
-		<div id="platforms_list">
+		<div class="matrix_grid">
 			{%for p in profile%}
+			<ul>
+			<li>
 			<a href ="{% url getplatform p.0 %}">{{p.1}} </a><br>
-		{%endfor%}
+			</li>
+			</ul>
+			{%endfor%}
 		</div>
 
 

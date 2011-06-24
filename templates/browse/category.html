@@ -3,15 +3,19 @@
 {% block extrahead %}
 {% endblock %}
 {% block content %)
-
+		
 		{% autopaginate 25 %}
+		<div class="matrix_grid">
 		{% for p in profile%}
 		<ul>
 			<li>
 				<a href ="{% url browse p.slug %}">{{p}} </a>
 			</li>
-		</ul>		
+		</ul>
 		{%endfor%}
+		</div>
+		<div class="clear"></div>
 		{% paginate %}
+		
 
 {% endblock %}

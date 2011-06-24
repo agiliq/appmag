@@ -13,10 +13,14 @@
 			</ul>
 		<!--Now browsing by <a href="{% url developer %}">Developer</a><br>Browse by <a href = "{% url device %}">Device</a>&nbsp;<a href = "{% url home %}">Category</a>&nbsp;<a href = "{% url platform%}">Platform</a>
 		<br>-->
-		<div>
+		<div class="matrix_grid">
 		{%autopaginate profile 25 %}
 		{% for p in profile%}
-		<img src= "{{p.1}}"/><a href ="{% url getapplication p.2 %}">{{p.0}} </a><br>
+		<ul>
+			<li>
+				<img src= "{{p.1}}" width="140"/><a href ="{% url getapplication p.2 %}"><br/>{{p.0}} </a><br>
+			</li>
+		</ul>
 		{%endfor%}
 		{% paginate %}
 		</div>

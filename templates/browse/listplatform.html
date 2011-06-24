@@ -17,11 +17,17 @@
 <br>-->
 			{%if profile %}
 			   {% autopaginate profile 25%}
-				 {% for p in profile%}
-			<img src= "{{p.1}}"/><a href ="{% url getapplication p.2 %}">{{p.0}} </a><br>
-					 {%endfor%}
-					 {% paginate %}
-					 
+			   <div class="matrix_grid">
+				{% for p in profile%}
+					<ul>
+						<li>
+							<img src= "{{p.1}}" width="140"/><br/><a href ="{% url getapplication p.2 %}">{{p.0}} </a><br>
+						</li>
+					</ul>
+				{%endfor%}
+				</div>
+				<div class="clear"></div>
+				{% paginate %}					 
 			{% else %}
 			Sorry.. No apps found!!
 			{%endif%}
