@@ -10,10 +10,13 @@
 			<li><a href ="{% url discuss %}">Discuss</a></li>
 			<!--<li><a href ="/search/">Search</a></li>-->
 		</ul>
+		<!-- SEARCH BAR STARTS -->
 		<div id="searchbar">
 			<input type="text" name="q" id="textfield" class="searchfield">
-			<input type="submit" value="Search" class="smallButton blackButton blueButton">		
+			<input type="submit" value="search" class="smallButton blackButton blueButton">
 		</div>
+		<!-- SEARCH BAR ENDS -->
+		<!-- MOBILE PLATFORMS STARTS -->
 		<div id="mobile_platforms"> 
 			<div class="indi_mobile">
 				<div class="mobilogo"><a href = "{% url getplatform 'AP' %}"><img src="{{MEDIA_URL}}images/apple_icon.png" width="100px"/></a></div>
@@ -33,6 +36,7 @@
 			</div>		
 			<div class="clear"></div>			
 		</div>
+		<!-- MOBILE PLATFORMS ENDS -->
 		<br/><br/>
 
 {% endblock %}

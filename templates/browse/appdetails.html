@@ -162,10 +162,19 @@
 
 {%endfor%} <br>
 More from this developer<br>
-{% for app in developerlist%}
-<a href = "{% url getapplication app.2 %}"><img src="{{app.1}}"/>
-{{app.0}}<br></a>
-{%endfor%}
+<!-- MORE FROM THIS DEVELOPER STARTS -->
+	<div class="matrix_grid">
+	{% for app in developerlist%}		
+		<ul>
+			<li>				
+				<a href = "{% url getapplication app.2 %}"><img src="{{app.1}}"/>{{app.0}}<br></a>				
+			</li>
+		</ul>
+	{%endfor%}
+	</div>
+<!-- MORE FROM THIS DEVELOPER ENDS -->
+
+
 Related Apps<br>
 {% for app in related%}
 <a href = "{% url getapplication app.2 %}"><img src="{{app.1}}"/>
