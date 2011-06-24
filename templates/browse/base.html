@@ -20,11 +20,20 @@
 
 <body>
 	<div id="homebase">
-		<div><a href="{% url home %}"><img src="{{MEDIA_URL}}images/appmag_logo.png" /></a></div>
-		
-		{% block content %}
-		{% endblock %}
-		
+		<div id="logo"><a href="{% url home %}"><img src="{{MEDIA_URL}}images/appmag_logo.png" /></a></div>
+			{% block topsearchbar %}
+			<!-- SEARCH BAR STARTS -->
+			<div id="searchbar_top">
+				<input type="text" name="q" id="textfield" class="searchfield">
+				<input type="submit" value="search" class="smallButton blackButton blueButton">
+			</div>
+			<!-- SEARCH BAR ENDS -->			
+			{% endblock %}
+			<div class="clear"></div>
+			
+			{% block content %}
+			{% endblock %}
+
 		<div id="footer">Copyright &copy; 2011 Appmag | Developed by <a href="http://afoniq.com/">Afoniq</a></div>
 	</div>
 </body>

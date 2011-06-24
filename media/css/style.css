@@ -8,6 +8,8 @@ body{background:URL("../images/bg.png"); height:101%;}
 #base{width:960px; background:#fff; display:block; margin:0px auto;}
 #homebase{width:960px; background:#fff; display:block; margin:0px auto; }
 
+#logo{width:250px; float:left;}
+
 #mobile_platforms{ width:700px; margin:0px auto; margin-top:25px; margin-bottom:25px; }
 #mobile_platforms .indi_mobile{ width:150px; float:left; -moz-border-radius:15px; -webkit-border-radius:15px; background:#ECECEC; min-height:160px; margin-left:10px; text-align:center; padding-top:20px; cursor:pointer;	-webkit-transition: background 1000ms ease-in 0.1s;     -moz-transition: background 1000ms ease-in 0.1s;
     -o-transition: background 1000ms ease-in 0.1s;
@@ -48,7 +50,7 @@ PLATFORM
 
 
 #searchbar{width:450px; margin:0px auto; -webkit-border-radius:15px; -moz-border-radius:15px; padding:15px; background:#ECECEC; margin-top:15px; text-align:center;}
-
+#searchbar_top{width:450px;  -webkit-border-radius:15px; -moz-border-radius:15px; padding:15px; background:#ECECEC; margin-top:15px; text-align:center; float:right; margin-right:20px;}
 
 .matrix_grid{width:100%; margin:0px auto;}
 .matrix_grid ul{}
