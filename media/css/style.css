@@ -50,7 +50,7 @@ PLATFORM
 #searchbar{width:450px; margin:0px auto; -webkit-border-radius:15px; -moz-border-radius:15px; padding:15px; background:#ECECEC; margin-top:15px; text-align:center;}
 
 
-#footer{ width:960px; display:block; background:#fff; margin:0px auto; padding:30px 0px 30px 0px; text-align:center; color:#717171;}
+#footer{ width:100%; display:block; background:#fff; margin:0px auto; padding:10px 0px 10px 0px; text-align:center; color:#717171; border-top:1px solid #ECECEC; margin-top:20px;}
 
 .clear{clear:both;}
 
