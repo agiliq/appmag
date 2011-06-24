@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-	<div id="homebase">
-		<div>App Mag</div>
+
 		<ul id="crumbs">
 			<li>Browse by :</li>
 			<li><a href = "{% url reviews %}">Reviews</a></li>
 			<li><a href ="{% url home %}">Browse Apps</a></li>
 			<li><a href ="{% url discuss %}">Discuss</a></li>
-			<li><a href ="/search/">Search</a></li>
+			<!--<li><a href ="/search/">Search</a></li>-->
 		</ul>
+		<div id="searchbar">
+			<input type="text" name="q" id="textfield" class="searchfield">
+			<input type="submit" value="Search" class="smallButton blackButton blueButton">		
+		</div>
 		<div id="mobile_platforms"> 
 			<div class="indi_mobile">
 				<div class="mobilogo"><img src="{{MEDIA_URL}}images/apple_icon.png" width="100px"/></div>
@@ -29,5 +32,5 @@
 			<div class="clear"></div>			
 		</div>
 		<br/><br/>
-	</div>
+
 {% endblock %}

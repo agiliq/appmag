@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {%load pagination_tags %}
 {% block content %)
-	<div id="homebase">
-		<div>App Mag</div>
+
 		{% autopaginate 25 %}
 		{% for p in profile%}
 		<a href ="{% url browse p.slug %}">{{p}} </a><br>
 		{%endfor%}
 		{% paginate %}
-	</div>
+
 {% endblock %}

@@ -9,8 +9,13 @@
 </head>
 
 <body>
-{% block content %}
-{% endblock %}
-<div id="footer">Copyright &copy; 2011 Appmag | Developed by <a href="http://afoniq.com/">Afoniq</a></div>
+	<div id="homebase">
+		<div><img src="{{MEDIA_URL}}images/appmag_logo.png" /></div>
+		
+		{% block content %}
+		{% endblock %}
+		
+		<div id="footer">Copyright &copy; 2011 Appmag | Developed by <a href="http://afoniq.com/">Afoniq</a></div>
+	</div>
 </body>
 </html>

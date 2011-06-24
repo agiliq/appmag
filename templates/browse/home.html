@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-	<div id="homebase">
-		<div>App Mag</div>
+
 		<ul id="crumbs">			
 			<li>Browse by :</li>
 			<li><a href = "{% url device %}">Device</a></li>
@@ -13,5 +12,5 @@
 		{% for p in profile%}
 		<a href ="{% url getcategory p.slug %}">{{p}} </a><br>
 		{%endfor%}
-	</div>
+
 {% endblock %}
