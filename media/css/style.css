@@ -43,8 +43,8 @@ PLATFORM
 #app_detail #appinfo #appicon{width:130px; height:130px;  }
 #app_detail #appinfo #infolist{width:100%; }
 #app_detail #appinfo #infolist ul{margin:0px; padding:0px; clear:both;}
-#app_detail #appinfo #infolist ul li{border-bottom:1px solid #DBDBDB; display:block; width:80%; margin:0px 20px 0px 0px; font:bold 12px  Arial, serif; line-height:30px; color:#414546; }
-#app_detail #appinfo #infolist ul li span{color:#648E0E; text-transform:uppercase;}
+#app_detail #appinfo #infolist ul li{border-bottom:1px solid #DBDBDB; display:block; width:80%; margin:0px 20px 0px 0px; font:bold 12px  Arial, serif; line-height:30px; color:#648E0E;}
+#app_detail #appinfo #infolist ul li span{ color:#414546; font-weight:normal;}
 #app_detail #app_description{margin:15px 0 15px 0; display:block; width:70%; float:right;}
 #price{width:130px; float:left; font:bold 16px Arial,serif; color:#444849; text-align:center;  text-transform:uppercase; margin-top:10px;}
 
