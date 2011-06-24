@@ -4,7 +4,11 @@
 
 		{% autopaginate 25 %}
 		{% for p in profile%}
-		<a href ="{% url browse p.slug %}">{{p}} </a><br>
+		<ul>
+			<li>
+				<a href ="{% url browse p.slug %}">{{p}} </a>
+			</li>
+		</ul>		
 		{%endfor%}
 		{% paginate %}
 

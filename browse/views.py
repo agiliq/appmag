@@ -56,7 +56,7 @@ def get_list_platform(request,slug):
     profile = App.objects.values_list('title','logo','slug').filter(slug__isnull=False).exclude(slug__exact='').filter(platform=slug).distinct()
     t = loader.get_template('browse/listplatform.html')
     c = RequestContext(request,{'profile':profile})
-
+    return HttpResponse(t.render(c))
 def get_app(request,id):
     profile = App.objects.filter(slug=id)[:1]
     developerlist = App.objects.values_list('title','logo','slug').exclude(title=profile[0].title).filter(developer = profile[0].developer).order_by('?').distinct()[:5]
