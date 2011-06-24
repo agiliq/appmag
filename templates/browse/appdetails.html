@@ -137,23 +137,21 @@
 	
 	
 <!-- SLIDER START --> 
+{%for thumb in p.thumbnails.all %}
 <h2>Screenshots:</h2>
 <div class="demo">  
 	<div class="scroll-pane ui-widget ui-widget-header ui-corner-all"> 
-		<div class="scroll-content" > 
-			{%for thumb in p.thumbnails.all %}
-				<div class="scroll-content-item ui-widget-header" >
-					
-						<img src="{{thumb.image}}" width="320"/>
-					
-				</div> 
-			{%endfor%}
+		<div class="scroll-content" > 			
+				<div class="scroll-content-item ui-widget-header" >					
+						<img src="{{thumb.image}}" width="320"/>					
+				</div> 			
 		</div> 
 		<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom"> 
 			<div class="scroll-bar"></div> 
 		</div> 
 	</div>  
 </div>
+{%endfor%}
 <!-- SLIDER END --> 
  
 
