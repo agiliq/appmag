@@ -1,11 +1,32 @@
+{% extends "base.html" %}
 {%load pagination_tags %}
+{% block extrahead %}
+{% endblock %}
+{% block content %}
 
-Now browsing by <a href="{% url platform %}">Platform</a><br>Browse by <a href = "{% url home %}">Category</a>&nbsp;<a href = "{% url developer%}">Developer</a>&nbsp;<a href = "{% url device %}">Device</a>
-<br>
+		<ul id="crumbs">
+			<li>Browse by :</li>
+			<li><a href = "{% url home %}">Category</a></li>
+			<li><a href = "{% url developer%}">Developer</a></li>
+			<li><a href = "{% url device %}">Device</a></li>
+			<!--<li><a href ="/search/">Now browsing by Platform</a></li>-->
+			<li>Platform</li>
+		</ul>
+		<div class="listing">
+			<ul>
+				{%for p in profile%}
+
+				<li>
+				<a href ="{% url getplatform p.0 %}">{{p.1}} </a><br>
+				</li>
+
+				{%endfor%}
+			</ul>
+		</div>
 
 
-{%autopaginate profile 25 %}
-{%for p in profile%}
-<a href ="{% url getplatform p.0 %}">{{p.1}} </a><br>
-{%endfor%}
-{%paginate%}
+
+	{%autopaginate profile 25 %}
+
+	{%paginate%}
+{% endblock %}

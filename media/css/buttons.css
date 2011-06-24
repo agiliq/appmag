@@ -1,0 +1,113 @@
+/* -----------------------------------------------------------
+
+BUTTONS
+
+-------------------------------------------------------------- */
+.bigButton, .bigButton:visited {
+	background: #636363 url('../../images/buttons/alert-overlay.png') repeat-x; 
+	display: inline-block; 
+	padding: 10px 68px 10px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+	font-weight: bold;
+	text-shadow: #000 1px 1px 0px;
+	margin:10px 0 0 0;
+}
+
+.bigButton:hover {
+	background-color: #525252;
+	color: #ebebeb;
+}
+
+.bigButton:active {
+	top: 1px;
+}
+
+.smallButton, .smallButton:visited {
+	background: #636363 url('../../images/buttons/alert-overlay.png') repeat-x; 
+	display: inline-block; 
+	padding: 7px 28px 7px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+	font-weight: bold;
+	text-shadow: #000 1px 1px 0px;
+
+	border:0px;
+}
+
+.smallButton:hover {
+	background-color: #525252;
+	color: #ebebeb;
+}
+
+.smallButton:active {
+	top: 1px;
+}
+
+.blueButton, .blueButton:visited {
+	background: #7CB210 url('../../images/buttons/alert-overlay.png') repeat-x; 
+	text-shadow: #598402 1px 1px 0px;
+	
+}
+
+.blueButton:hover, .blueButton:visited:hover {
+	background-color: #598402;
+	color: #fff;
+	text-shadow: #456700 1px 1px 0px;
+}
+
+
+
+/* Simple scalable breadcrumb by Veerle Pieters
+------------------------------------------------------------------*/
+
+ul, li {
+	list-style-type:none;
+	padding:0;
+	margin:0;
+	}		
+#crumbs {
+	height:3.3em;
+	border:1px solid #dedede;
+	}
+#crumbs li {
+	float:left;
+	line-height:3.3em;
+	color:#777;
+	padding-left:.75em;
+	}		
+#crumbs li a {
+	background:url(../images/crumbs.gif) no-repeat right center;
+	display:block;
+	padding:0 15px 0 0;
+	font-weight:bold;
+	}							
+#crumbs li a:link,
+#crumbs li a:visited {
+	color:#777;
+	text-decoration:none;
+	}	
+
+#crumbs li a:hover,
+#crumbs li a:focus {
+	color:#6D9F09;
+	}	
+	
+	
+.searchfield{width:300px;padding:7px;  -webkit-border-radius:5px; -moz-border-radius:5px; background:#fff; border:1px solid #C5C5C5;}

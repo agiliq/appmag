@@ -1,8 +1,22 @@
+{% extends "base.html" %}
 {% load pagination_tags %}
-Now browsing by <a href="{% url device %}">Device</a><br>Browse by <a href = "{% url home %}">Category</a>&nbsp;<a href = "{% url developer%}">Developer</a>&nbsp;<a href = "{% url platform%}">Platform</a>
-<br>
-{% autopaginate profile 25 %}
-{% for p in profile%}
-<img src = "{{p.1}}"/><a href ="{% url getapplication p.2 %}">{{p.0}} </a><br>
-{%endfor%}
-{%paginate %}
+{% block extrahead %}
+{% endblock %}
+{% block content %}
+
+			<ul id="crumbs">
+				<li>Browse by :</li>
+				<li><a href = "{% url device %}">Device</a></li>
+				<li><a href = "{% url developer %}">Deveoper</a></li>
+				<li><a href = "{% url platform %}">Platform</a></li>
+				<li><a href="{% url home %}">Category</a></li>
+			</ul>
+<!--Now browsing by <a href="{% url device %}">Device</a><br>Browse by <a href = "{% url home %}">Category</a>&nbsp;<a href = "{% url developer%}">Developer</a>&nbsp;<a href = "{% url platform%}">Platform</a>
+<br>-->
+			{% autopaginate profile 25 %}
+			{% for p in profile%}
+			<img src = "{{p.1}}"/><a href ="{% url getapplication p.2 %}">{{p.0}} </a><br>
+			{%endfor%}
+			{%paginate %}
+
+{% endblock %}

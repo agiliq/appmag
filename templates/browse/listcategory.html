@@ -1,9 +1,28 @@
- {%load pagination_tags %}
- 
- Now browsing by <a href="{% url home %}">Category</a><br>Browse by <a href = "{% url device %}">Device</a>&nbsp;<a href = "{% url developer %}">Deveoper</a>&nbsp;<a href = "{% url platform %}">Platform</a>
-<br>
-{% autopaginate profile 25%}
-{% for p in profile%}
-<img src= "{{p.1}}"/><a href ="{% url getapplication p.2 %}">{{p.0}} </a><br>
-{%endfor%}
-{% paginate %}
+{% extends "base.html" %}
+{%load pagination_tags %}
+{% block extrahead %}
+{% endblock %}
+{% block content %}
+
+		<ul id="crumbs">
+			<li>Browse by :</li>
+			<li><a href = "{% url device %}">Device</a></li>
+			<li><a href = "{% url developer %}">Deveoper</a></li>
+			<li><a href = "{% url platform %}">Platform</a></li>
+			<li><a href="{% url home %}">Category</a></li>
+		</ul>
+		
+		<div class="matrix_grid">
+		{% autopaginate profile 25%}
+		{% for p in profile%}
+		<ul>
+			<li>
+				<img src= "{{p.1}}" width="140"/><br/><a href ="{% url getapplication p.2 %}">{{p.0|slice:'40'}} </a><br/>
+			</li>
+		</ul>
+		{%endfor%}
+		</div>
+		<div class="clear"></div>
+		{% paginate %}
+
+{% endblock %}

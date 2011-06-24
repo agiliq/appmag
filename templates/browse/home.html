@@ -1,5 +1,25 @@
- Now browsing by <a href="{% url home%}">Category</a><br>Browse by <a href = "{% url device%}">Device</a>&nbsp;<a href = "{% url developer%}">Developer</a>&nbsp;<a href = "{% url platform%}">Platform</a>
-<br>
-{% for p in profile%}
-<a href ="{% url getcategory p.slug %}">{{p}} </a><br>
-{%endfor%}
+{% extends "base.html" %}
+{% block extrahead %}
+{% endblock %}
+{% block content %}
+
+		<ul id="crumbs">			
+			<li>Browse by :</li>
+			<li><a href = "{% url device %}">Device</a></li>
+			<li><a href = "{% url developer %}">Deveoper</a></li>
+			<li><a href = "{% url platform %}">Platform</a></li>
+			<li>Category</li>
+		</ul>
+		<div class="listing">
+			<ul>
+			{% for p in profile%}
+
+				<li>
+					<a href ="{% url getcategory p.slug %}">{{p}} </a><br>
+				</li>
+
+			{%endfor%}
+			</ul>
+		</div>
+
+{% endblock %}
