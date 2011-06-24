@@ -137,21 +137,23 @@
 	
 	
 <!-- SLIDER START --> 
-{%for thumb in p.thumbnails.all %}
+
 <h2>Screenshots:</h2>
 <div class="demo">  
-	<div class="scroll-pane ui-widget ui-widget-header ui-corner-all"> 
-		<div class="scroll-content" > 			
-				<div class="scroll-content-item ui-widget-header" >					
-						<img src="{{thumb.image}}" width="320"/>					
-				</div> 			
+	<div class="scroll-pane ui-widget ui-widget-header ui-corner-all"> 	
+		<div class="scroll-content" > 	
+			{%for thumb in p.thumbnails.all %}
+					<div class="scroll-content-item ui-widget-header" >										
+							<img src="{{thumb.image}}" width="320"/>									
+					</div> 	
+			{%endfor%}					
 		</div> 
 		<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom"> 
 			<div class="scroll-bar"></div> 
 		</div> 
 	</div>  
 </div>
-{%endfor%}
+
 <!-- SLIDER END --> 
  
 
@@ -167,7 +169,7 @@
 	{% for app in developerlist%}		
 		<ul>
 			<li>				
-				<a href = "{% url getapplication app.2 %}"><img src="{{app.1}}" width="140" /><br/>{{app.0}}<br></a>				
+				<a href = "{% url getapplication app.2 %}"><img src="{{app.1}}" width="140" /><br/>{{app.0|slice:'40'}}<br></a>				
 			</li>
 		</ul>
 	{%endfor%}
@@ -181,7 +183,7 @@
 	{% for app in related%}
 	<ul>
 		<li>	
-			<a href = "{% url getapplication app.2 %}"><img src="{{app.1}}"  width="140" /><br/>{{app.0}}<br></a>
+			<a href = "{% url getapplication app.2 %}"><img src="{{app.1}}"  width="140" /><br/>{{app.0|slice:'40'}}<br></a>
 		</li>
 	</ul>
 	{%endfor%}
