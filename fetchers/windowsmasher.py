@@ -1,4 +1,6 @@
-import json
+import json,os,sys
+from os import path
+sys.path.append(os .path.join(os.getcwd()))
 from browse.models import *
 from django.template.defaultfilters import slugify
 import string

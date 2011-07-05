@@ -1,4 +1,7 @@
-import json
+import json,os,sys
+from os import path
+sys.path.append(os.path.join(os.getcwd()))
+
 from browse.models import *
 from django.template.defaultfilters import slugify
 image = open("detail.json").read()
@@ -6,18 +9,20 @@ data = json.loads(image)
 
         
 for datum in data:
+    obj = App()
     try:
         tmp = datum["category"].pop()    
         slugy =slugify(tmp)
         cat, created = Category.objects.get_or_create(name = tmp,slug=slugy)
+        obj.category = cat
     except:
-        pass
+        continue
     try:
         tmp =datum["developer"].pop().strip('By ')
     except:
         tmp = "None"
     devel, created = Developer.objects.get_or_create(name = tmp, slug =slugify(tmp))
-    obj = App()
+    obj.developer = devel
     try:
         obj.title = datum["name"].pop()
     except:
@@ -28,8 +33,6 @@ for datum in data:
     obj.logo = datum["logo"].pop()
     obj.price = datum["price"].pop()
     obj.platform = 	'AP'
-    obj.category = cat
-    obj.developer = devel
     obj.save()
     a = []
     for thums in datum["screen"]:
