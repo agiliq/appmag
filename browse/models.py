@@ -13,7 +13,7 @@ PLATFORMS = (
         (('AN'), ('Android')),
         (('AP'), ('iPhone')),
         (('BB'), ('Blackberry')),
-        (('WM'), ('Windows Mobile')),
+        (('WM'), ('Windows_Mobile')),
             )
 class Developer(models.Model):
     name = models.CharField("Developer", max_length=200)

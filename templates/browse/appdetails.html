@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{%block extrahead%}
+<title> {{profile.0.title}} - {{profile.0.developer}} for {{profile.0.get_platform_display}}</title>
+{%endblock %}
 {% block content %}
 
 	<style> 
@@ -163,9 +166,10 @@
 {%endfor%}
 <div class="clear"></div>
 <br/>
+	<div class="matrix_grid">
+{% if developerlist %}
 <h2>More from this developer</h2>
 <!-- MORE FROM THIS DEVELOPER STARTS -->
-	<div class="matrix_grid">
 	{% for app in developerlist%}		
 		<ul>
 			<li>				
@@ -173,9 +177,11 @@
 			</li>
 		</ul>
 	{%endfor%}
+    {%endif%}
 	</div>
 <!-- MORE FROM THIS DEVELOPER ENDS -->
 <div class="clear"></div>
+{% if related %}
 
 <h2>Related Apps</h2>
 <!-- RELATED APPS STARTS HERE -->
@@ -188,6 +194,7 @@
 	</ul>
 	{%endfor%}
 </div>
+{%endif%}
 <!-- RELATED APPS ENDS HERE -->
 <div class="clear"></div>
 {% endautoescape %}
