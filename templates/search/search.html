@@ -1,4 +1,3 @@
-
 {% block content %}
 <h2>Search</h2>
 
@@ -14,14 +13,21 @@
 </table>
 
 {% if query %}
-<h3>results</h3>
-
+<h3>Results</h3>
 {% for result in page.object_list %}
 <p>
-<a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+{%autoescape off%}
+{% if result.object.title %}
+<b><a href="{% url getapplication result.object.slug %}">{{ result.object.title }}</a> <i>for</i> {{result.object.get_platform_display}}</b><br/>
+{{result.object.description|slice:"120"}}
+...
+{%else%}
+<a href="{% url getdeveloper result.object.slug %}">{{ result.object.name }}</a> 
+{%endif%}
+{%endautoescape%}
 </p>
 {% empty %}
-<p>no results found.</p>
+<p>Sorry, Your stone din't hit any fruit.</p>
 {% endfor %}
 
 {% if page.has_previous or page.has_next %}
