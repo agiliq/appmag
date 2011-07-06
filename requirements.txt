@@ -8,3 +8,4 @@ django-oauth
 South
 django-compressor
 sorl-thumbnail
+django_google_analytics
