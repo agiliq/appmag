@@ -122,7 +122,13 @@
 			   <a href = "/device/{{dev.slug}}">{{dev.name}}</a>
 			{%endfor%}
 			<li><span >Developer : </span>{{p.developer}}</li>
-			<li><span >Current version : </span >Lifestyle</li>
+            {% if morelinks %}
+			<li><span >More Links : <br/></span>
+			{%for links in morelinks%}
+			   <a href = "{{links.link}}">{{links.link}}</a>
+			{%endfor%}
+            {%endif%}
+            </li>
 			<a href ="{{p.url}}" class="bigButton blackButton blueButton">DOWNLOAD</a>
 			</ul>
 		</div>

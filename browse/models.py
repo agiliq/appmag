@@ -65,4 +65,7 @@ class App(models.Model):
 
     def __unicode__(self):
         return self.title
- 
+
+class morelinks(models.Model):
+    link = models.CharField("Link",max_length=500)
+    app = models.ForeignKey(App, related_name="morelinks")

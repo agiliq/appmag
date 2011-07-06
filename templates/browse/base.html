@@ -24,8 +24,10 @@
 			{% block topsearchbar %}
 			<!-- SEARCH BAR STARTS -->
 			<div id="searchbar_top">
-				<input type="text" name="q" id="textfield" class="searchfield">
-				<input type="submit" value="search" class="smallButton blackButton blueButton">
+<form method="POST" action="." >{% csrf_token %}
+<input type="text" name="q" id="textfield" class="searchfield">
+i				<input type="submit" value="search" class="smallButton blackButton blueButton">
+</form>
 			</div>
 			<!-- SEARCH BAR ENDS -->			
 			{% endblock %}

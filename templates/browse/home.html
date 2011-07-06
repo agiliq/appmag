@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block extrahead %}
+<title> appmag.in - One stop shop for all app news, reviews and more.. </title>
 {% endblock %}
 {% block content %}
 
 		<ul id="crumbs">			
 			<li>Browse by :</li>
 			<li><a href = "{% url device %}">Device</a></li>
-			<li><a href = "{% url developer %}">Deveoper</a></li>
+			<li><a href = "{% url developer %}">Developer</a></li>
 			<li><a href = "{% url platform %}">Platform</a></li>
 			<li>Category</li>
 		</ul>
