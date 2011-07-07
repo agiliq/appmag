@@ -34,23 +34,29 @@ def platform(request):
     return HttpResponse(t.render(c))
     
 def get_list_category(request,slug):
-    print slug
     profile = App.objects.values_list('title','logo','slug').filter(slug__isnull=False).exclude(slug__exact='').filter(category__slug=slug).distinct()
+    dev = Category.objects.filter(slug=slug)[0]
+    slug=dev.name
     t = loader.get_template('browse/listcategory.html')
-    c = RequestContext(request,{'profile':profile})
+    c = RequestContext(request,{'profile':profile,'slug':slug})
     return HttpResponse(t.render(c))
+
 def get_list_device(request,slug):
-    print slug
     profile = App.objects.values_list('title','logo','slug').filter(slug__isnull=False).exclude(slug__exact='').filter(device__slug=slug).distinct()
+    dev = Device.objects.filter(slug=slug)[0]
+    slug=dev.name
     t = loader.get_template('browse/listdevice.html')
-    c = RequestContext(request,{'profile':profile})
+    c = RequestContext(request,{'profile':profile,'slug':slug})
     return HttpResponse(t.render(c))
+
 def get_list_developer(request,slug):
-    print slug
     profile = App.objects.values_list('title','logo','slug').filter(slug__isnull=False).exclude(slug__exact='').filter(developer__slug=slug).distinct()
+    dev = Developer.objects.filter(slug=slug)[0]
+    slug=dev.name
     t = loader.get_template('browse/listdeveloper.html')
-    c = RequestContext(request,{'profile':profile})
+    c = RequestContext(request,{'profile':profile,'slug':slug})
     return HttpResponse(t.render(c))
+    
 def get_list_platform(request,slug):
     #print slug
     plat="AP"
@@ -65,12 +71,13 @@ def get_list_platform(request,slug):
      
     profile = App.objects.values_list('title','logo','slug').filter(slug__isnull=False).exclude(slug__exact='').filter(platform=plat).distinct()
     t = loader.get_template('browse/listplatform.html')
-    c = RequestContext(request,{'profile':profile})
+    c = RequestContext(request,{'profile':profile,'slug':slug})
     return HttpResponse(t.render(c))
 def get_app(request,id):
     profile = App.objects.filter(slug=id)[:1]
-    developerlist = App.objects.values_list('title','logo','slug').exclude(title=profile[0].title).filter(developer = profile[0].developer).order_by('?').distinct()[:4]
-    related = App.objects.values_list('title','logo','slug').exclude(title=profile[0].title).filter(category = profile[0].category).filter(platform=profile[0].platform).order_by('?').distinct()[:4]
+    developerlist = App.objects.values_list('title','logo','slug').filter(slug__isnull=False).exclude(slug__exact='').exclude(title=profile[0].title).filter(developer = profile[0].developer).order_by('?').distinct()[:10]
+    related = App.objects.values_list('title','logo','slug').filter(slug__isnull=False).exclude(slug__exact='').exclude(title=profile[0].title).filter(category = profile[0].category).filter(platform=profile[0].platform).order_by('?').distinct()[:10]
+    more = morelinks.objects.filter(app__slug=id)
     t = loader.get_template('browse/appdetails.html')
-    c = RequestContext(request,{'profile':profile, 'developerlist':developerlist,'related':related})
+    c = RequestContext(request,{'profile':profile, 'developerlist':developerlist,'related':related,'morelinks':more})
     return HttpResponse(t.render(c))

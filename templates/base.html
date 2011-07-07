@@ -13,6 +13,7 @@
 	<script src="{{MEDIA_URL}}js/jquery.ui.widget.js"></script> 
 	<script src="{{MEDIA_URL}}js/jquery.ui.mouse.js"></script> 
 	<script src="{{MEDIA_URL}}js/jquery.ui.slider.js"></script> 
+	<script src="{{MEDIA_URL}}js/jquery.jcarousel.min.js"></script> 
 	<link rel="stylesheet" href="{{MEDIA_URL}}css/demo.css"> 
 {% block extrahead %}
 {% endblock %}
@@ -20,13 +21,13 @@
 
 <body>
 	<div id="homebase">
-		<div id="logo"><a href="{% url home %}"><img src="{{MEDIA_URL}}images/appmag_logo.png" /></a></div>
+		<div id="logo"><a href="{% url index %}"><img src="{{MEDIA_URL}}images/appmag_logo.png" /></a></div>
 			{% block topsearchbar %}
 			<!-- SEARCH BAR STARTS -->
 			<div id="searchbar_top">
-<form method="POST" action="." >{% csrf_token %}
+<form method="GET" action="/search" >
 <input type="text" name="q" id="textfield" class="searchfield">
-i				<input type="submit" value="search" class="smallButton blackButton blueButton">
+				<input type="submit" value="search" class="smallButton blackButton blueButton">
 </form>
 			</div>
 			<!-- SEARCH BAR ENDS -->			

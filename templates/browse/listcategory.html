@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {%load pagination_tags %}
 {% block extrahead %}
-<title>Appmag.in - Apps for iPhone, Android, Blackberry and windows Mobile -detailed, with reviews</title>
+<title>Appmag.in - Apps related to {{slug}}</title>
 {% endblock %}
 {% block content %}
 
 		<ul id="crumbs">
 			<li>Browse by :</li>
 			<li><a href = "{% url device %}">Device</a></li>
-			<li><a href = "{% url developer %}">Deveoper</a></li>
+			<li><a href = "{% url developer %}">Developer</a></li>
 			<li><a href = "{% url platform %}">Platform</a></li>
 			<li><a href="{% url home %}">Category</a></li>
 		</ul>
+<b>Apps related to {{slug}} </b>
 		
 		<div class="matrix_grid">
 		{% autopaginate profile 25%}
