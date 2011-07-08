@@ -21,6 +21,11 @@ carousel.startAuto();
 };
 
 jQuery(document).ready(function() {
+jQuery('#mycarousel1').jcarousel({
+auto: 1,
+wrap: 'last',
+initCallback: mycarousel_initCallback
+});
 jQuery('#mycarousel').jcarousel({
 auto: 2,
 wrap: 'last',
