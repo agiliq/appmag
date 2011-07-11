@@ -14,6 +14,7 @@
 			</ul>
 		<!--Now browsing by <a href="{% url developer %}">Developer</a><br>Browse by <a href = "{% url device %}">Device</a>&nbsp;<a href = "{% url home %}">Category</a>&nbsp;<a href = "{% url platform%}">Platform</a>
 		<br>-->
+        {%autoescape off %}
 		<div class="matrix_grid">
 		{%autopaginate profile 25 %}
 
@@ -29,5 +30,5 @@
 
 		{% paginate %}
 		</div>
-
+{% endautoescape %}
 {% endblock %}
