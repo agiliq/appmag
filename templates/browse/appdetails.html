@@ -199,7 +199,7 @@
 	{% for app in developerlist%}		
 
 			<li>				
-				<a href = "{% url getapplication app.2 %}"><img src="{{app.1}}" width="140" /><br/>{{app.0|slice:'40'}}<br></a>				
+				<a href = "{% url getapplication1 profile.0.get_platform_display app.2 %}"><img src="{{app.1}}" width="140" /><br/>{{app.0|slice:'40'}}<br></a>				
 			</li>
 	{%endfor%}
 		</ul>
@@ -215,7 +215,7 @@
 	<ul id="mycarousel" >
 	{% for app in related%}
 		<li>	
-			<a href = "{% url getapplication app.2 %}"><img src="{{app.1}}"  width="140" /><br/>{{app.0|slice:'40'}}<br></a>
+			<a href = "{% url getapplication1 profile.0.get_platform_display app.2 %}"><img src="{{app.1}}"  width="140" /><br/>{{app.0|slice:'40'}}<br></a>
 		</li>
 	{%endfor%}
 	</ul>

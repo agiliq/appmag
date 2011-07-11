@@ -19,7 +19,7 @@
 		{% for p in profile%}
 		<ul>
 			<li>
-				<img src= "{{p.1}}" width="140"/><br/><a href ="{% url getapplication p.2 %}">{{p.0|slice:'40'}} </a><br/>
+				<img src= "{{p.1}}" width="140"/><br/><a href ="{% url getapplication1 platform p.2 %}">{{p.0|slice:'40'}} </a><br/>
 			</li>
 		</ul>
 		{%endfor%}
