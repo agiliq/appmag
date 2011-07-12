@@ -3,19 +3,20 @@
 {% block extrahead %}
 <title>Appmag.in - Apps for iPhone, Android, Blackberry and windows Mobile -detailed, with reviews</title>
 {% endblock %}
+{%autoescape off%}
 {% block content %)
 		{% autopaginate 25 %}
 		<div class="matrix_grid">
 		{% for p in profile%}
 		<ul>
 			<li>
-				<a href ="{% url browse p.slug %}">{{p}} </a>
+				<a href ="{% url browse p.slug %}">{{p.name}}</a>
 			</li>
 		</ul>
 		{%endfor%}
 		</div>
 		<div class="clear"></div>
 		{% paginate %}
-		
-
+{%endautoescape%}
 {% endblock %}
+

@@ -11,16 +11,17 @@
 			<li><a href = "{% url platform %}">Platform</a></li>
 			<li>Category</li>
 		</ul>
+        {% autoescape off %}
 		<div class="listing">
 			<ul>
 			{% for p in profile%}
 
 				<li>
-					<a href ="{% url getcategory p.slug %}">{{p}} </a><br>
+					<a href ="{% url getcategory p.slug %}">{{p.name}} </a><br>
 				</li>
 
 			{%endfor%}
 			</ul>
 		</div>
-
+{%endautoescape %}
 {% endblock %}
