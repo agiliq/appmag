@@ -46,7 +46,7 @@ STATIC_URL = '/static/'
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/static/media/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -106,7 +106,7 @@ INSTALLED_APPS = (
     
     'socialauth',
     'compressor',
-    #'google_analytics',
+    'google_analytics',
     'sorl.thumbnail',
     'openid_consumer',    
     'pagination',
@@ -117,7 +117,7 @@ INSTALLED_APPS = (
     'blogango',
     'taggit',
     'logging',
-    
+    'south',
 )
 
 # A sample logging configuration. The only tangible logging
