@@ -15,14 +15,23 @@ env.directory = REPO_PATH
 
 def restart():
     print(green("Restarting...\n"))
-    sudo("/home/agiliq/scripts/appmag_restart.sh")
+    run("/home/agiliq/scripts/appmag_restart.sh")
     print(green("Restarted\n"))
-
+def syncdb():
+    print(green("syncdb is running...\n"))
+    run("python manage.py syncdb")
+def migrate():
+    print(green("Migrating database...\n"))
+    run("python manage.py migrate")
+def pull():
+    print(green("Pulling the latest code...\n"))
+    run("git pull")
 def deploy():
     with settings(user=USER):
         with cd(env.directory):
-           print(green("Pulling the latest code...\n"))
-           run("git pull")
+           pull()
+           migrate()
+           syncdb()
            restart()
 if __name__ == "__main__":
    deploy()
