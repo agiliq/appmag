@@ -124,9 +124,18 @@
 		<div id="price">Price : {{p.price}}</div>
 		<div id="infolist">
 			<ul>
-			<li><span >Category : </span> <a href = "{% url getcategory p.category.slug %}"> {{p.category}}</a></li>
+			<li><span >Category : </span> <a href = "{% url getcategory p.category.slug %}"> {{p.category.name}}</a></li>
 			<li><span >Rating : </span>{{p.rating}}/5.0</li>
 			<li><span >Language : </span>English</li>
+		{%if also%}
+        <li><span >Also for : </span>
+<!--//      Added to remove duplication, have to reset when fresh database is there.
+{% for each in also %}
+//          <a href ="{% url getapplication1 each.get_platform_display each.title %}">{{each.title}}<i>  for  </i>{{each.get_platform_display}}</li>
+//           {% endfor %}-->
+          <a href ="{% url getapplication1 also.0.get_platform_display also.0.slug %}">{{also.0.title}}<i>  for  </i>{{also.0.get_platform_display}}</li>
+
+        {%endif%}</a>
 			<li><span >Devices : </span>
 {%if p.device.count > 1%}
 			<b class = show_hide>show devices</a></b>
