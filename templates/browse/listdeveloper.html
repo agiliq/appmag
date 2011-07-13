@@ -7,16 +7,16 @@
 
 			<ul id="crumbs">
 				<li>Browse by :</li>
+				<li><a href="{% url home %}">Category</a></li>
+				<li><a href = "{% url platform %}">Platform</a></li>
 				<li><a href = "{% url device %}">Device</a></li>
 				<li><a href = "{% url developer %}">Developer</a></li>
-				<li><a href = "{% url platform %}">Platform</a></li>
-				<li><a href="{% url home %}">Category</a></li>
 			</ul>
 		<!--Now browsing by <a href="{% url developer %}">Developer</a><br>Browse by <a href = "{% url device %}">Device</a>&nbsp;<a href = "{% url home %}">Category</a>&nbsp;<a href = "{% url platform%}">Platform</a>
 		<br>-->
         {%autoescape off %}
 		<div class="matrix_grid">
-		{%autopaginate profile 25 %}
+		{%autopaginate profile 24 %}
 
 			<ul>
 				{% for p in profile%}
@@ -28,7 +28,9 @@
 
 		<div class="clear"></div>
 
-		{% paginate %}
+<center>
+    <b>{% paginate %}</b>
+</center>
 		</div>
 {% endautoescape %}
 {% endblock %}
