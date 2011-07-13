@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load browse_tags %}
 {%block extrahead%}
 	{% autoescape off %}
 <title> {{profile.0.title}} - {{profile.0.developer}} for {{profile.0.get_platform_display}}</title>
@@ -20,6 +21,7 @@
 	.scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
 	</style> 
 	<script> 
+    $.fn.rating.options.split = 2;
 	$(function() {
 		//scrollpane parts
 		var scrollPane = $( ".scroll-pane" ),
@@ -99,6 +101,7 @@
             $(".slidingDiv").slideToggle();
          });
      });
+
 	</script> 
 	
 		<ul id="crumbs" >
@@ -115,8 +118,12 @@
 		<div id="app_title">
 			<h1><a href ="/app/{{p.slug}}">{{p.title}} </a> <span>by {{p.developer}}<a href="/developer/{{p.developer.slug}}">   more from this developer</a></span></h1>
 		</div>
-		<div id="rate"></div>       
-		<div class="clear"></div>
+		<div id="rater">
+		    <div id="rate">
+        {% for i in "0123456789" %}
+        <input name="adv1" type="radio" class="star"{% ifequal forloop.counter p.rating|rounded %} checked="checked"{% endifequal %} disabled="disabled" />
+        {% endfor %}
+        </div>       
 	</div>
 	<!-- LEFT CONTAINER STARTS -->
 	<div id="appinfo">
@@ -163,9 +170,9 @@
 		<div class="clear"></div>
 	</div>
 	<!-- LEFT CONTAINER ENDS -->
-<a href = "/"> Home</a> &raquo;<a href="{% url getplatform p.get_platform_display%}">{{p.get_platform_display}}</a>&raquo; <a href="{% url getcategory p.category.slug %}">{{p.category.name}}</a> &raquo; {{p.title}}	
 <!-- DESCRIPTTION CONTAINER STARTS -->
 	<div id="app_description">
+<a href = "/"> Home</a> &raquo;<a href="{% url getplatform p.get_platform_display%}">{{p.get_platform_display}}</a>&raquo; <a href="{% url getcategory p.category.slug %}">{{p.category.name}}</a> &raquo; {{p.title}}	
 		<h2>DESCRIPTION :</h2>
 		{{p.description}}
 	</div>

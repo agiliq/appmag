@@ -38,7 +38,8 @@ PLATFORM
 #app_detail #app_header #app_title  h1{font-family: 'Tinos', arial, serif;   font-size:24px; line-height:58px; width:720px; float:left; color:#fff; padding-top:10px; }
 #app_detail #app_header #app_title  h1 a{color:#fff; text-decoration:none;}
 #app_detail #app_header #app_title  h1 span{font-family: Times, arial, serif; font-size:14px; font-style:italic; color:#414546; font-weight:bold; padding-left:15px; text-shadow: -1px 1px 1px #B9E75B;}
-#app_detail #app_header #rate{width:115px; float:right; height:67px; background:URL("../images/rate_badge.png") no-repeat; }
+#app_detail #app_header #rater{width:115px; float:right; height:67px; background:URL("../images/rate_badge.png") no-repeat; }
+#app_detail #app_header #rate{width:90px; float:center; height:32px; margin:auto; align:center; margin-top:20px; text-align:center }
 #app_detail #appinfo{width:30%; display:block; float:left;  }
 #app_detail #appinfo #appicon{width:130px; height:130px;  }
 #app_detail #appinfo #infolist{width:100%; }

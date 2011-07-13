@@ -21,6 +21,7 @@
 </head>
 
 <body>
+{% autoescape off%}
 	<div id="homebase">
 		<div id="logo"><a href="{% url index %}"><img src="{{MEDIA_URL}}images/appmag_logo.png" /></a></div>
 			{% block topsearchbar %}
@@ -42,3 +43,4 @@
 	</div>
 </body>
 </html>
+{%endautoescape%}
