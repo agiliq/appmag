@@ -156,7 +156,9 @@
 			   <a href = "{% url getdevice dev.slug%}">{{dev.name}}</a>
 			{%endfor%}
                {%endif%}
+               {%if p.developer.slug %}
 			<li><span >Developer : </span><a href="{% url getdeveloper p.developer.slug %}">{{p.developer}}</a></li>
+            {%endif%}
             {% if morelinks %}
 			<li><span >More Links : <br/></span>
 			{%for links in morelinks%}
