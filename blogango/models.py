@@ -1,14 +1,21 @@
 from datetime import datetime
 from django.db import models
-from django.db.models import permalink
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.comments.moderation import CommentModerator, moderator
 from django.template.defaultfilters import slugify
+from django.core.urlresolvers import reverse
 
 from taggit.managers import TaggableManager
 from markupfield.fields import MarkupField
 from markupfield.markup import DEFAULT_MARKUP_TYPES
+
+class BlogManager(models.Manager):
+    def get_blog(self):
+        blogs = self.all()
+        if blogs:
+            return blogs[0]
+        return None
 
 class Blog(models.Model):
     """Blog wide settings.
@@ -25,14 +32,17 @@ class Blog(models.Model):
     recents = models.IntegerField(default=5)
     recent_comments = models.IntegerField(default=5)
 
+    objects = BlogManager()
+
     def __unicode__(self):
         return self.title
 
-    def save(self):
+    def save(self, *args, **kwargs):
+
         """There should not be more than one Blog object"""
-        if Blog.objects.count() > 1 and self.id:
+        if Blog.objects.count() == 1 and not self.id:
             raise Exception("Only one blog object allowed.")
-        super(Blog, self).save() # Call the "real" save() method.
+        super(Blog, self).save(*args, **kwargs) # Call the "real" save() method.
 
 
 class BlogPublishedManager(models.Manager):
@@ -47,12 +57,12 @@ class BlogEntry(models.Model):
     Title: Post title.
     Slug: Post slug. These two if not given are inferred directly from entry text.
     text = The main data for the post.
-    summary = The summary for the text. probably can can be derived from text, bit we dont want do do that each time main page is displayed.
+    summary = The summary for the text. probably can be derived from text, but we dont want do do that each time main page is displayed.
     created_on = The date this entry was created. Defaults to now.
     Created by: The user who wrote this.
-    is_page: IS this a page or a post? Pages are the more important posts, which might be displayed differently. Defaults to false.
-    is_published: Is this page published. If yes then we would display this on site, otherwise no. Default to true.
-    comments_allowed: Are comments allowed on this post? Default to True
+    is_page: Is this a page or a post? Pages are the more important posts, which might be displayed differently. Defaults to false.
+    is_published: Is this page published. If yes then we would display this on site, otherwise no. Defaults to true.
+    comments_allowed: Are comments allowed on this post? Defaults to True
     is_rte: Was this post done using a Rich text editor?"""
 
     title = models.CharField(max_length=100)
@@ -93,9 +103,14 @@ class BlogEntry(models.Model):
         if self.slug == None or self.slug == '':
             self.slug = slugify(self.title)
 
-        slug_count = BlogEntry.objects.filter(slug__startswith=self.slug).exclude(pk=self.pk).count()
-        if slug_count:
-            self.slug += '-%s' %(slug_count + 1)
+        i = 1
+        while True:
+            created_slug = self.create_slug(self.slug, i)
+            slug_count = BlogEntry.objects.filter(slug__exact=created_slug).exclude(pk=self.pk)
+            if not slug_count:
+                break
+            i += 1
+        self.slug = created_slug
 
         if not self.summary:
             self.summary = _generate_summary(self.text.raw)
@@ -108,17 +123,20 @@ class BlogEntry(models.Model):
             #default value for created_on is datetime.max whose year is 9999
             if self.created_on.year == 9999:
                 self.created_on = self.publish_date
-        super(BlogEntry, self).save() # Call the "real" save() method.
+        super(BlogEntry, self).save(*args, **kwargs) # Call the "real" save() method.
 
-    @permalink
+    def create_slug(self, initial_slug, i=1):
+        if not i==1:
+            initial_slug += "-%s" % (i,)
+        return initial_slug
+
     def get_absolute_url(self):
-        return ('blogango_details', (), {'year': self.created_on.strftime('%Y'),
+        return reverse('blogango_details', kwargs={'year': self.created_on.strftime('%Y'),
                                          'month': self.created_on.strftime('%m'),
                                          'slug': self.slug})
 
-    @permalink
     def get_edit_url(self):
-        return ('blogango.views.admin_entry_edit', [self.id])
+        return reverse('blogango_admin_entry_edit', args=[self.id])
 
     def get_num_comments(self):
         cmnt_count = Comment.objects.filter(comment_for=self, is_spam=False).count()
@@ -166,9 +184,13 @@ class Comment(BaseComment):
     default = models.Manager()
     objects = CommentManager()
 
-    @permalink
+    def save(self, *args, **kwargs):
+        if self.is_spam:
+            self.is_public = False
+        super(Comment, self).save(*args, **kwargs)
+
     def get_absolute_url (self):
-        return ('comment_details', self.id)
+        return reverse('blogango_comment_details', args=[self.id,])
 
 class Reaction(BaseComment):
     """
@@ -204,4 +226,5 @@ moderator.register(Comment, CommentModerator)
 
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^markupfield\.fields\.MarkupField"])
+
 

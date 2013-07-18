@@ -1,7 +1,20 @@
 {% extends "blogango/admin/base.html" %}
 {% block title %}{{ _("Manage Comments") }}{% endblock %}
+{% block extra_script %}
+    {% include "blogango/admin/ajaxify.js" %}
+{% endblock %}
+{% block subnavbar %}
+    <ul class="ctxnavbar">
+      <li{% if 'blocked' not in request.GET %} class="active"{% endif %}>
+          <a href="{{ request.path }}">Approved</a>
+      </li>
+      <li{% if 'blocked' in request.GET %} class="active"{% endif %}>
+          <a href="{{ request.path }}?blocked">Blocked</a>
+      </li>
+    </ul>
+{% endblock %}
 {% block contents %}
-  <h1>{{ _("Manage Comments") }}</h1>
+<h1>{{ _("Manage Comments") }} {% if blog_entry %} for {{blog_entry.title}}{% endif %}</h1>
     <ul class="comments">
     {% if comments %}
 	    {% for comment in comments %}
@@ -14,9 +27,9 @@
 	          <p>{{ comment.created_on }}
 	          [
 	          {% if comment.is_public %}
-	            <a href="{% url blogango_admin_comment_block comment.id %}">{{ _("Block") }}</a> |
+              <a href="#" value="{{comment.id}}" class="block_comment">{{ _("Block") }}</a> |
               {% else %}
-                <a href="{% url blogango_admin_comment_approve comment.id %}">{{ _("Approve") }}</a> |
+              <a href="#" value="{{comment.id}}" class="approve_comment">{{ _("Approve") }}</a> |
 	          {% endif %}
 	            <a href="{{ comment.comment_for.get_edit_url }}">{{ comment.comment_for.title }}</a>
 	          ]
@@ -27,4 +40,17 @@
     	{{ _("No comments") }}
     {% endif %}
     </ul>
+    {% if page_.has_next or page_.has_previous %}
+    <div class="pagination"> 
+        <div class="moreinfo">
+            {% if page_.has_next %}
+            <a href='{% url "blogango_admin_comments_manage" %}?page={{page_.next_page_number}}{% if 'blocked' in request.GET %}&blocked{% endif %}'>&laquo; Previous Entries</a>
+            {% endif %}
+            
+            {% if page_.has_previous %}
+            <span class='right'><a href='{% url "blogango_admin_comments_manage" %}?page={{page_.previous_page_number}}{% if 'blocked' in request.GET %}&blocked{% endif %}'>Next Entries &raquo;</a></span>
+            {% endif %}
+        </div> 
+    </div>
+    {% endif %}
 {% endblock %}

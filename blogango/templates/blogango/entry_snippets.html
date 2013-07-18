@@ -1,14 +1,15 @@
+{% load blogango_filters %}
 <div class="comment_block">
   <div class="left_panel">
     <div class="frame_bg">
         {% if entry.created_by.teammember.photo %}
             <img src="{{ entry.created_by.teammember.photo.url }}" width="71" height="72" alt="{{ entry.created_by }}" />
         {% else %}
-            <img src="{{ MEDIA_URL }}blogango/images/person_default.jpg" width="71" height="72" alt="{{ entry.created_by }}" />
+            <img src="{{ STATIC_URL }}blogango/images/person_default.jpg" width="71" height="72" alt="{{ entry.created_by }}" />
         {% endif %}
     </div>
     <div class="italics">
-	  <a href='{% url blogango_archives entry.created_on.year entry.created_on|date:"b" %}'>
+	  <a href='{% url "blogango_archives" entry.created_on.year entry.created_on|date:"b" %}'>
 		{{ entry.created_on|date:'jS N, Y' }}
 	  </a>
 	</div>
@@ -21,7 +22,7 @@
   </div>
   <div class="right_panel">
     <a href="{{ entry.get_absolute_url }}" class='noline'><h1 class="post_title">{{ entry.title }}</h1></a>
-    <h6 class="posted_by">By : <a href="{% url blogango_author entry.created_by %}">{{ entry.created_by }}</a>{% if entry.created_by.teammember.tag_line %} - {{ entry.created_by.teammember.tag_line }} {% endif %}</h6>
+    <h6 class="posted_by">By : <a href="{% url "blogango_author" entry.created_by %}">{{ entry.created_by }}</a>{% if entry.created_by.teammember.tag_line %} - {{ entry.created_by.teammember.tag_line }} {% endif %}</h6>
 	{% if post_detail %}
 	  <p>{{ entry.text|safe }}</p>
 	{% else %}
@@ -33,8 +34,21 @@
     <div class="topics">
 	{% for tag in entry.tags.all %}
       {% if forloop.first %}Topics : {% endif %}
-	  <a href="{% url blogango_tag_details tag.slug %}">{{ tag.name }}</a>
+	  <a href="{% url "blogango_tag_details" tag.slug %}">{{ tag.name }}</a>
 	{% endfor %}
+    {% related_posts entry as related_posts %}
+    {% if related_posts %}
+    <h4>You may want to read</h4>
+    <ul>
+
+    {% for post in related_posts %}
+        <li>
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
 	</div>
   </div>
 </div>

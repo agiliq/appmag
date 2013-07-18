@@ -1,35 +1,40 @@
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
-from django.views.generic.date_based import archive_month
+#from django.views.generic.date_based import archive_month
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.encoding import smart_str
+from django.db.models import Q
+from datetime import datetime
+from django.views.decorators.http import require_POST
+from django.utils import simplejson as json
+from django.views.generic.dates import MonthArchiveView
 
 from taggit.models import Tag
 
-from blogango.models import Blog, BlogEntry, Comment, BlogRoll, Reaction, _infer_title_or_slug, _generate_summary
+from blogango.models import Blog, BlogEntry, Comment, BlogRoll, Reaction
 from blogango import forms as bforms
 from blogango.conf.settings import AKISMET_COMMENT, AKISMET_API_KEY
 from blogango.akismet import Akismet, AkismetError
 
 @staff_member_required
 def admin_dashboard(request):
-    recent_drafts = BlogEntry.objects.filter(is_published=False).order_by('-created_on')[:5]
-    recent_entries = BlogEntry.objects.filter(is_published=True).order_by('-created_on')[:5]
+    recent_drafts = BlogEntry.default.filter(is_published=False).order_by('-created_on')[:5]
+    recent_entries = BlogEntry.objects.order_by('-created_on')[:5]
     return render('blogango/admin/index.html', request, {'recent_drafts': recent_drafts,
                                                          'recent_entries': recent_entries})
 
 @staff_member_required
 def admin_entry_edit(request, entry_id=None):
     entry = None
-    entry_form = bforms.EntryForm(initial={'created_by': request.user.id})
+    entry_form = bforms.EntryForm(initial={'created_by': request.user.id, 'publish_date':datetime.now()})
     if entry_id:
         entry = get_object_or_404(BlogEntry, pk=entry_id)
         entry_form = bforms.EntryForm(instance=entry, initial={'text': entry.text.raw})
@@ -44,31 +49,48 @@ def admin_entry_edit(request, entry_id=None):
                 new_entry.is_page = True
             new_entry.save()
             tag_list = entry_form.cleaned_data['tags']
-            for tag in tag_list:
-                tag_, created = Tag.objects.get_or_create(name=tag.strip())
-                tag_.save()
-                new_entry.tags.add(tag_)
+            new_entry.tags.set(*tag_list)
             if new_entry.is_published:
                 return redirect(new_entry)
             return redirect(reverse('blogango_admin_entry_edit', args=[new_entry.id])+'?done')
+    tags_json = json.dumps([each.name for each in Tag.objects.all()])
     return render('blogango/admin/edit_entry.html', request, {'entry_form': entry_form,
-                                                              'entry': entry})
+                                                              'entry': entry,
+                                                              'tags_json': tags_json})
 
 @staff_member_required
-def admin_manage_entries(request):
-    entries = BlogEntry.default.all()
-    return render('blogango/admin/manage_entries.html', request, {'entries': entries})
+def admin_manage_entries(request, username=None):
+    author = None
+    if username:
+        author = get_object_or_404(User, username=username)
+        entries = BlogEntry.default.filter(created_by=author) 
+    else:
+        entries = BlogEntry.default.all()
+    return render('blogango/admin/manage_entries.html', request, {'entries': entries, 'author': author})
 
 @staff_member_required
-def admin_manage_comments(request):
+def admin_manage_comments(request, entry_id=None):
     # fetch all comments, objects gets you only public ones
-    comments = Comment.default.filter(is_spam=False).order_by('-created_on')
-    return render('blogango/admin/manage_comments.html', request, {'comments': comments})
+    blog_entry = None
+    if entry_id:
+        blog_entry = get_object_or_404(BlogEntry, pk=entry_id)
+    if 'blocked' in request.GET:
+        comments = Comment.default.filter(Q(is_spam=True)|Q(is_public=False)).order_by('-created_on')
+    else:
+        comments = Comment.objects.order_by('-created_on')
+    if blog_entry:
+        comments = comments.filter(comment_for=blog_entry)
+    page = request.GET.get('page', 1)
+    comments_per_page = getattr(settings, 'COMMENTS_PER_PAGE', 20)
+    paginator = Paginator(comments, comments_per_page)
+    page_ = paginator.page(page)
+    comments = page_.object_list
+    return render('blogango/admin/manage_comments.html', request, {'comments': comments, 'blog_entry': blog_entry, 'page_': page_})
 
 @staff_member_required
 def admin_edit_preferences(request):
     #only one blog must be present
-    blog = Blog.objects.get(pk=1)
+    blog = Blog.objects.get_blog()
     form = bforms.PreferencesForm(instance=blog)
     if request.POST:
         form = bforms.PreferencesForm(request.POST, instance=blog)
@@ -78,21 +100,24 @@ def admin_edit_preferences(request):
     return render('blogango/admin/edit_preferences.html', request, {'form': form})
 
 @staff_member_required
-def admin_comment_approve(request, comment_id):
+@require_POST
+def admin_comment_approve(request):
+    comment_id = request.POST.get('comment_id', None)
     comment = get_object_or_404(Comment, pk=comment_id)
+    comment.is_spam = False
     comment.is_public = True
     comment.save()
-    return redirect('blogango_admin_comments_manage')
+    return HttpResponse(comment.pk)
 
 @staff_member_required
-def admin_comment_block(request, comment_id):
+@require_POST
+def admin_comment_block(request):
+    comment_id = request.POST.get('comment_id', None)
     comment = get_object_or_404(Comment, pk=comment_id)
     comment.is_public = False
     comment.save()
-    return redirect('blogango_admin_comments_manage')
+    return HttpResponse(comment.pk)
 
-def welcome(request):
-    return render_to_response('mainpage.html', {})
 
 
 def handle404(view_function):
@@ -109,17 +134,13 @@ def index(request, page = 1):
         return HttpResponseRedirect(reverse('blogango_install'))
     page = int(page)
     blog = Blog.objects.all()[0]
-    entries = BlogEntry.objects.filter(is_page=False, is_published=True).order_by('-created_on')
+    entries = BlogEntry.objects.filter(is_page=False).order_by('-created_on')
     paginator = Paginator(entries, blog.entries_per_page)
     if paginator.num_pages < page:
         return redirect(reverse('blogango_page', args=[paginator.num_pages]))
     page_ = paginator.page(page)
     entries = page_.object_list
-    has_next = page_.has_next()
-    has_prev = page_.has_previous()
-    next = page + 1
-    prev = page - 1
-    payload = locals()
+    payload = {'entries': entries, 'page_': page_}
     return render('blogango/mainpage.html', request, payload)
 
 
@@ -248,140 +269,19 @@ def page_details(request, slug):
     return render('blogango/details.html', request, payload)
 
 
-@handle404
-def comment_details(request, comment_id):
-    comment = Comment.objects.get(id=comment_id)
-    payload = locals()
-    return render('blogango/comment.html', request, payload)
-
-
-def tag_details(request, tag_slug):
-    from taggit.models import Tag
-    if Tag.objects.filter(slug=tag_slug).count() == 0:
-        raise Http404
-    tag = Tag.objects.get(slug=tag_slug)
-    entries = BlogEntry.objects.filter(is_published=True, tags__in=[tag])
-    feed_url = getattr(settings, 'FEED_URL', reverse('blogango_feed', args=['tag']) + tag.slug + '/')
-    payload = {'tag': tag, 'entries': entries, 'feed_url': feed_url}
+def tag_details(request, tag_slug, page=1):
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    page = int(page)
+    blog = Blog.objects.get_blog()
+    tagged_entries = BlogEntry.objects.filter(is_published=True, tags__in=[tag])
+    paginator = Paginator(tagged_entries, blog.entries_per_page)
+    if page>paginator.num_pages:
+        return redirect(reverse('blogango_tag_details_page', args=[tag.slug, paginator.num_pages]))
+    page_ = paginator.page(page)
+    entries = page_.object_list
+    payload = {'tag': tag, 'entries': entries}
+    payload['page_'] = page_
     return render('blogango/tag_details.html', request, payload)
-
-
-@login_required
-def create_entry(request):
-    if request.method == 'GET':
-        create = bforms.EntryForm()
-    elif request.method == 'POST':
-        create = bforms.EntryForm(request.POST)
-        if create.is_valid():
-            if request.POST.has_key('save'):
-                publish = False
-            elif request.POST.has_key('post'):
-                publish = True
-            entry = BlogEntry(created_by=request.user,
-                              text=create.cleaned_data['text'],
-                              title=create.cleaned_data['title'],
-                              slug=create.cleaned_data['slug'],
-                              is_page=create.cleaned_data['is_page'],
-                              is_published=publish,
-                              is_rte=create.cleaned_data['is_rte'])
-            entry.save()
-            tags = create.cleaned_data['tags']
-            tag_list = tags.split()
-            for tag in tag_list:
-                tag_, created = Tag.objects.get_or_create(tag_txt=tag.strip())
-                tag_.save()
-                entry.tag_set.add(tag_)
-            if request.POST.has_key('save'):
-                return HttpResponseRedirect('.')
-            elif request.POST.has_key('post'):
-                return HttpResponseRedirect(entry.get_absolute_url())
-    payload = {'create_form': create,}
-    return render('blogango/create.html', request, payload)
-
-
-@login_required
-def edit_entry(request, entry_id):
-    if request.method == 'GET':
-        entry = BlogEntry.objects.filter(id=entry_id).values()[0]
-        entry_ = BlogEntry.objects.get(id=entry_id)
-        tags = Tag.objects.filter(tag_for=entry_)
-        tags = [tag.tag_txt for tag in tags]
-        tag_ = " ".join(tags)
-        entry['tags'] = tag_
-        create = bforms.EntryForm(entry)
-    elif request.method == 'POST':
-        create = bforms.EntryForm(request.POST)
-        if create.is_valid():
-            entry = BlogEntry.objects.get(id=entry_id)
-            entry.text = create.cleaned_data['text']
-            entry.title = create.cleaned_data['title']
-            entry.slug = create.cleaned_data['slug']
-            entry.is_page = create.cleaned_data['is_page']
-            entry.comments_allowed = create.cleaned_data['comments_allowed']
-            if request.POST.has_key('save'):
-                publish = False
-            elif request.POST.has_key('post'):
-                publish = True
-            entry.is_published = publish
-            entry.save()
-            tags = Tag.objects.filter(tag_for=entry)
-            for tag in tags:
-                entry.tag_set.remove(tag)
-            tags_data = create.cleaned_data['tags']
-            tag_list = tags_data.split(' ')
-            for tag in tag_list:
-                tag_, created = Tag.objects.get_or_create(tag_txt=tag.strip())
-                tag_.save()
-                entry.tag_set.add(tag_)
-            return HttpResponseRedirect(entry.get_absolute_url())
-    payload = {'create_form': create,}
-    return render('blogango/create.html', request, payload)
-
-
-@login_required
-def mod_entries(request):
-    if request.method == 'GET':
-        entries = BlogEntry.objects.all()
-        payload = locals()
-        return render('blogango/manage_entries.html', request, payload)
-    if request.method == 'POST':
-        if request.POST.has_key("unpublish"):
-            entry_ids = request.POST['entries']
-            entries = BlogEntry.objects.filter(id__in=entry_ids)
-            for entry in entries:
-                entry.is_published = False
-                entry.save()
-        elif request.POST.has_key("del"):
-            entry_ids = request.POST['entries']
-            # print request.POST
-            # print entry_ids
-            BlogEntry.objects.filter(id__in=entry_ids).delete()
-        return HttpResponseRedirect('.')
-
-
-@login_required
-def moderate_comments(request):
-    if request.method == 'GET':
-        comments = Comment.objects.filter()
-        payload = {"comments": comments}
-        return render('blogango/mod_comment.html', request, payload)
-    elif request.method == 'POST':
-        if request.POST.has_key('spam'):
-            spammeds = request.POST['spam']
-        else:
-            spammeds = {}
-        for spammed in spammeds:
-            comment = Comment.objects.get(id = spammed)
-            comment.is_spam = True
-            comment.save()
-        if request.POST.has_key('delete'):
-            deleteds = request.POST['delete']
-        else:
-            deleteds = {}
-        for deleted in deleteds:
-            Comment.objects.get(id = deleted).delete()
-        return HttpResponseRedirect('.')
-
 
 @login_required
 def install_blog(request):
@@ -412,46 +312,45 @@ def  create_blogroll(request):
     return render('blogango/blogroll.html', request, payload)
 
 
-@login_required
-def edit_preferences(request):
-    if request.method == 'GET':
-        prefs_form = bforms.PreferencesForm(Blog.objects.all().values()[0])
-    if request.method == 'POST':
-        prefs_form = bforms.PreferencesForm(request.POST)
-        if prefs_form.is_valid():
-            blog = Blog.objects.all()[0]
-            # print blog.id
-            blog.entries_per_page = prefs_form.cleaned_data['entries_per_page']
-            blog.recents = prefs_form.cleaned_data['recents']
-            blog.recent_comments = prefs_form.cleaned_data['recents']
-            blog.save()
-            return HttpResponseRedirect('.')
-    payload = {"install_form": prefs_form}
-    return render('blogango/edit_preferences.html', request, payload)
-
-
-@login_required
-def manage(request):
-    return render('blogango/manage.html', request, {})
-
-
-def author(request, username):
+def author(request, username, page=1):
+    page = int(page)
+    blog = Blog.objects.get_blog()
     author = get_object_or_404(User, username=username)
     author_posts = author.blogentry_set.filter(is_published=True)
+    paginator = Paginator(author_posts, blog.entries_per_page)
+    if page>paginator.num_pages:
+        return redirect(reverse('blogango_author_page', args=[author.username, paginator.num_pages]))
+    page_ = paginator.page(page)
+    entries = page_.object_list
     return render('blogango/author.html', request, {'author': author,
-                                                    'author_posts': author_posts})
+                                                    'entries': entries,
+                                                    'page_': page_})
 
-def monthly_view(request, year, month):
+#def monthly_view(request, year, month):
+    #queryset = BlogEntry.objects.filter(is_page=False, is_published=True)
+    #return archive_month(request=request,
+                         #template_name='blogango/archive_view.html',
+                         #year=year,
+                         #month=month,
+                         #queryset=queryset,
+                         #date_field='created_on',
+                         #allow_empty=True,
+                         #extra_context=_get_sidebar_objects(request))
+
+
+class BlogEntryMonthArchiveView(MonthArchiveView):
     queryset = BlogEntry.objects.filter(is_page=False, is_published=True)
-    return archive_month(request=request,
-                         template_name='blogango/archive_view.html',
-                         year=year,
-                         month=month,
-                         queryset=queryset,
-                         date_field='created_on',
-                         allow_empty=True,
-                         extra_context=_get_sidebar_objects(request))
+    date_field = 'created_on'
+    template_name = 'blogango/archive_view.html'
+    allow_empty = True
 
+    def get_context_data(self, **kwargs):
+        context = super(BlogEntryMonthArchiveView, self).get_context_data(**kwargs)
+        context.update(_get_sidebar_objects(self.request))
+        return context
+
+monthly_view = BlogEntryMonthArchiveView.as_view()
+    
 
 #Helper methods.
 def _is_blog_installed():
@@ -475,9 +374,6 @@ def _get_sidebar_objects (request):
         return {}
     recents = BlogEntry.objects.filter(is_page = False, is_published = True).order_by('-created_on')[:blog.recents]
     blogroll = BlogRoll.objects.filter(is_published=True)
-    # pages = BlogEntry.objects.filter(is_page = True, is_published = True)
-    # recent_comments = Comment.objects.all().order_by('-created_on')[:blog.recent_comments]
-    # date_list = _get_archive_months()
     return {'blog':blog,
             'recents':recents,
             'blogroll':blogroll,
@@ -488,10 +384,6 @@ def _get_sidebar_objects (request):
 def _get_archive_months():
     """Get the months for which at least one entry exists"""
     dates = BlogEntry.objects.filter(is_page=False, is_published=True).dates('created_on', 'month', order='DESC')
-    # print dates
-    # date_list = []
-    # for date in dates:
-    #     date_list.append((date.strftime('%Y/%b'), date.strftime('%B %y')))
     return dates
 
 
@@ -511,5 +403,5 @@ def generic(request): # A generic form processor.
     if request.method == 'GET':
         pass
     if request.method == 'POST':
-       pass
+        pass
 

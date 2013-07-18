@@ -1,6 +1,7 @@
-from django.contrib.syndication.feeds import Feed
+from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import get_object_or_404
 
 from blogango.models import Blog, BlogEntry
 from taggit.models import Tag
@@ -26,10 +27,8 @@ class main_feed(Feed):
         return item.text
     
 class CatFeed(Feed):
-    def get_object(self, bits):
-        if len(bits) != 1:
-            raise ObjectDoesNotExist
-        return Tag.objects.get(name__iexact=bits[0])
+    def get_object(self, request, tag):
+        return get_object_or_404(Tag, name=tag)
     
     def title(self, obj):
         return "%s" % obj.name
@@ -43,4 +42,7 @@ class CatFeed(Feed):
         return "Category: %s" % obj.name
     
     def items(self, obj):
-        return BlogEntry.objects.filter(is_published=True, tags__in=[obj], is_page=False)
+        return BlogEntry.objects.filter(tags__in=[obj], is_page=False)
+
+    def item_description(self, obj):
+        return obj.text

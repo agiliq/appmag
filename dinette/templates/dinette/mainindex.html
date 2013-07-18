@@ -1,5 +1,8 @@
 {% extends "dinette/base.html" %}
 
+{% load url from future %}
+
+
 {% block content %}
 
 <!-- brd-wrap begins -->
@@ -16,7 +19,6 @@
 <!-- brd-main begins -->
 <div id="brd-main">
 {% for forum in forums_list %}
-  {% if user_access_list|get_digit:forloop.counter  %}
   <h1 class="main-title">{{ forum }}</h1>
   <div class="main-head">
     <h2 class="hn"><span>{{ forum }}</span></h2>
@@ -25,7 +27,7 @@
   <div class="main-subhead">
     <p class="item-summary">
 	  <span>
-	    <strong class="subject-title">Forum  </strong> in this category with details of 
+	    <strong class="subject-title">Forums  </strong> in this category with details of 
 		<strong class="info-topics">topics</strong>,
 		<strong class="info-posts">posts</strong>, 
 		<strong class="info-lastpost">last post</strong>
@@ -34,20 +36,20 @@
   </div>
   
   <!-- category-#id begins -->
-  <div id="category{{category.id}}" class="main-content main-category">
+  <div id="category" class="main-content main-category">
     {% for category in forum.category_set.all %}
 	<!-- forum48 begins -->
     <div id="category{{ category.id }}" class="main-item odd main-first-item">
 	  <span class="icon "><!-- --></span>
                 
 	  <div class="item-subject">
-		<h3 class="hn"><a href="{% url dinette_index category.slug %}"><span> {{category}} </span></a></h3>
+		<h3 class="hn"><a href="{% url 'dinette_index' category.slug %}"><span> {{category}} </span></a></h3>
 		<p>{{ category.description }} 
 		  <span class="modlist">
 		    (Moderated by
 		    {% for moderator in category.moderated_by.all %}
 			  <a href="{{ moderator.get_profile.get_absolute_url }}">{{moderator}}</a>{% if not forloop.last %}, {% endif %}
-		    {% endfor %}    
+		    {% endfor %}
 		    )
 		  </span>
 		</p>
@@ -84,7 +86,6 @@
 	{% endfor %}
   </div>
   <!-- category-#id ends -->
-  {% endif %}
 {% endfor %}
 </div>
 <!-- brd-main ends -->

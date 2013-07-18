@@ -1,8 +1,6 @@
 from datetime import datetime
 from django.conf.urls.defaults import *
-from django.contrib.auth.views import login, logout, password_change, password_reset
 from django.contrib.sitemaps import GenericSitemap
-
 from blogango import feeds
 from blogango.models import BlogEntry
 
@@ -15,37 +13,31 @@ sitemaps = {
 }
 
 urlpatterns = patterns('blogango.views',
-    url(r'^welcome/$', 'welcome', name='blogango_welcome'),
-    url(r'^install/$', 'install_blog', name='blogango_install'),
-    url(r'^preferences/$', 'edit_preferences', name='blogango_edit_preferences'),
-
-    url(r'^$', 'index', name='reviews'),
     url(r'^$', 'index', name='blogango_index'),
+    url(r'^install/$', 'install_blog', name='blogango_install'),
     url(r'^page/(?P<page>\d+)/$', 'index',  name='blogango_page'),
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<slug>[-\w]+)/$', 'details', name='blogango_details'),
-    url(r'^new/$', 'create_entry', name='blogango_create'),
     url(r'^blogroll/$', 'create_blogroll', name='blogango_blogroll'),
-    url(r'^moderate/$', 'moderate_comments', name='blogango_mod_comments'),
-    url(r'^entries/$', 'mod_entries', name='blogango_mod_entries'),
     url(r'^tag/(?P<tag_slug>[-\w]+)/$','tag_details', name='blogango_tag_details'),
-    url(r'^manage/$', 'manage', name='blogango_manage'),
-    url(r'^edit/(?P<entry_id>\d+)/$', 'edit_entry', name='blogango_edit_entry'),
-    url(r'^comment/(?P<comment_id>\d+)/$', 'comment_details', name='blogango_comment_details'),
+    url(r'^tag/(?P<tag_slug>[-\w]+)/(?P<page>\d+)/$','tag_details', name='blogango_tag_details_page'),
     url(r'^author/(?P<username>[\w.@+-]+)/$', 'author', name='blogango_author'),
+    url(r'^author/(?P<username>[\w.@+-]+)/(?P<page>\d+)/$', 'author', name='blogango_author_page'),
 
     url(r'^admin/$', 'admin_dashboard', name='blogango_admin_dashboard'),
     url(r'^admin/entry/new/$', 'admin_entry_edit', name='blogango_admin_entry_new'),
     url(r'^admin/entry/edit/(?P<entry_id>\d+)/$', 'admin_entry_edit', name='blogango_admin_entry_edit'),
     url(r'^admin/entry/manage/$', 'admin_manage_entries', name='blogango_admin_entry_manage'),
+    url(r'^admin/entry/manage/(?P<username>[\w.@+-]+)/$', 'admin_manage_entries', name='blogango_admin_author_entry_manage'),
     url(r'^admin/comments/manage/$', 'admin_manage_comments', name='blogango_admin_comments_manage'),
+    url(r'^admin/comments/manage/(?P<entry_id>\d+)/$', 'admin_manage_comments', name='blogango_admin_entry_comments_manage'),
     url(r'^admin/preferences/edit/$', 'admin_edit_preferences', name='blogango_admin_edit_preferences'),
-    url(r'^admin/comment/approve/(?P<comment_id>\d+)/$', 'admin_comment_approve', name='blogango_admin_comment_approve'),
-    url(r'^admin/comment/block/(?P<comment_id>\d+)/$', 'admin_comment_block', name='blogango_admin_comment_block'),
+    url(r'^admin/comment/approve/$', 'admin_comment_approve', name='blogango_admin_comment_approve'),
+    url(r'^admin/comment/block/$', 'admin_comment_block', name='blogango_admin_comment_block'),
 )
 
 #search view
-urlpatterns += patterns('blogango.search',
-    url(r'^search/$', 'search', name = 'search'),
+urlpatterns += patterns('',
+    #url(r'^search/', include('haystack.urls')),
 )
 
 # sitemap.xml
@@ -62,10 +54,12 @@ urlpatterns += patterns('django_xmlrpc.views',
     url(r'^xmlrpc/$', 'handle_xmlrpc', {}, name='xmlrpc'),
 )
 
-feeds = {'latest': feeds.main_feed, 'tag':feeds.CatFeed}
-# feeds = {'latest': feeds.main_feed}
 urlpatterns += patterns('',
-    url(r'^rss/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, name='blogango_feed')
+    url(r'^rss/latest/$', feeds.main_feed(), name='blogango_feed')
+)
+
+urlpatterns += patterns('',
+    url(r'^rss/latest/(?P<tag>[-\w]+)/$', feeds.CatFeed(), name='blogango_tag_feed')
 )
 
 urlpatterns += patterns('blogango.views',

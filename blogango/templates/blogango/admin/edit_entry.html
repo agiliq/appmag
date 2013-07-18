@@ -1,5 +1,4 @@
 {% extends "blogango/admin/base.html" %}
-{% load adminmedia %}
 {% block title %}
     {% if entry %}
         Editing entry:: {{ entry_form.initial.title }}
@@ -9,15 +8,24 @@
     &#8203;{{ title_suffix }}
 {% endblock %}
 {% block page_head %}
-<link rel="stylesheet" type="text/css" href="/media/css/forms.css" />
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}admin/css/forms.css" />
 
 <script type="text/javascript" src="/admin/jsi18n/"></script>
-<script type="text/javascript" src="/media/js/core.js"></script>
-<script type="text/javascript" src="/media/js/calendar.js"></script>
-<script type="text/javascript" src="/media/js/admin/DateTimeShortcuts.js"></script>
-<script type="text/javascript">
-    window.__admin_media_prefix__ = "{% filter escapejs %}{% admin_media_prefix %}{% endfilter %}";
-</script>
+<script type="text/javascript" src="{{STATIC_URL}}admin/js/core.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}admin/js/calendar.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}admin/js/admin/DateTimeShortcuts.js"></script>
+{% endblock %}
+{% block extra_script %}
+    <script>
+        $(document).ready(function(){
+            var tags_json = '{{tags_json|safe}}';
+            var tag_list = JSON.parse(tags_json);
+            $("#id_tags").autocomplete(tag_list, {
+                multiple: true
+            });
+        });
+    </script>
 {% endblock %}
 {% block subnavbar %}
     <ul class="ctxnavbar">
