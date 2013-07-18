@@ -103,15 +103,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    
+    'django_xmlrpc',
     'socialauth',
     'compressor',
     'google_analytics',
     'sorl.thumbnail',
-    'openid_consumer',    
+    'openid_consumer',
     'pagination',
     'haystack',
-    
     'browse',
     'dinette',
     'blogango',
@@ -150,9 +149,12 @@ from markupfield.markup import DEFAULT_MARKUP_TYPES
 DEFAULT_MARKUP_TYPE = "plain"
 MARKUP_RENDERERS = DEFAULT_MARKUP_TYPES
 
-HAYSTACK_SITECONF = 'appsite.search_sites'
-HAYSTACK_SEARCH_ENGINE = 'xapian'
-HAYSTACK_XAPIAN_PATH = 'xapian_index'
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'mysite_index'),
+    },
+}
 
 try:
     from extra_settings import *
