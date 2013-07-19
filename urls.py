@@ -9,9 +9,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^', include('browse.urls')),
-    url(r'^reviews/', include('blogango.urls')),
-    url(r'^discuss/', include('dinette.urls')),
-    url(r'^accounts/', include('socialauth.urls')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     url(r'^search/', include('haystack.urls'), name='search'),
 )
