@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import url, patterns, include
+from django.conf.urls import url, patterns
 
 from browse.views import *
 
@@ -15,4 +15,3 @@ urlpatterns = patterns('',
     url(r'^developer/(?P<slug>[^/]+)/$', 'browse.views.get_list_developer', name='getdeveloper'),
     url(r'^platform/(?P<slug>[^/]+)/$', 'browse.views.get_list_platform', name='getplatform'),
 )
-
