@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+
+{% load url from future %}
+
 {%block extrahead %}
 <title>Search through appmag.in</title>
 {%endblock%}
@@ -20,11 +23,11 @@
 <p>
 {%autoescape off%}
 {% if result.object.title %}
-<b><a href="{% url getapplication1 result.object.get_platform_display result.object.slug %}">{{ result.object.title }}</a> <i>for</i> {{result.object.get_platform_display}}</b><br/>
+<b><a href="{% url 'getapplication1' result.object.get_platform_display result.object.slug %}">{{ result.object.title }}</a> <i>for</i> {{result.object.get_platform_display}}</b><br/>
 {{result.object.description|slice:"200"}}
-...<a href="{% url getapplication1 result.object.get_platform_display result.object.slug %}">more ...</a><br/>
+...<a href="{% url 'getapplication1' result.object.get_platform_display result.object.slug %}">more ...</a><br/>
 {%else%}
-<a href="{% url getdeveloper result.object.slug %}">{{ result.object.name }}</a> 
+<a href="{% url 'getdeveloper' result.object.slug %}">{{ result.object.name }}</a> 
 {%endif%}
 {%endautoescape%}
 </p>

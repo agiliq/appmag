@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+
+{% load url from future %}
+
 {%load pagination_tags %}
 {% block extrahead %}
 <title> Apps for iPhone, Android,Blackberry and more...</title>
@@ -7,10 +10,10 @@
 
 		<ul id="crumbs">
 			<li>Browse by :</li>
-			<li><a href = "{% url home %}">Category</a></li>
+			<li><a href = "{% url 'home' %}">Category</a></li>
 			<li><a href = "{% url platform%}">Platform</a></li>
 			<li>Device</li>
-			<li><a href = "{% url developer %}">Developer</a></li>
+			<li><a href = "{% url 'developer' %}">Developer</a></li>
 		</ul>
 	{%autopaginate profile 25 %}
 		<div class="listing">
@@ -18,7 +21,7 @@
 				{% for p in profile%}
 
 					<li>
-					<a href ="{% url getdevice p.slug %}">{{p}} </a><br>
+					<a href ="{% url 'getdevice' p.slug %}">{{p}} </a><br>
 					</li>
 
 				{%endfor%}

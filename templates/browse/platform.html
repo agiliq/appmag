@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+
+{% load url from future %}
+
 {%load pagination_tags %}
 {% block extrahead %}
 <title>Appmag.in - Apps for iPhone, Android, Blackberry and windows Mobile -detailed, with reviews</title>
@@ -7,9 +10,9 @@
 
 		<ul id="crumbs">
 			<li>Browse by :</li>
-			<li><a href = "{% url home %}">Category</a></li>
+			<li><a href = "{% url 'home' %}">Category</a></li>
 			<li>Platform</li>
-			<li><a href = "{% url device %}">Device</a></li>
+			<li><a href = "{% url 'device' %}">Device</a></li>
 			<!--<li><a href ="/search/">Now browsing by Platform</a></li>-->
 			<li><a href = "{% url developer%}">Developer</a></li>
 		</ul>
@@ -18,7 +21,7 @@
 				{%for p in profile%}
 
 				<li>
-				<a href ="{% url getplatform p.1 %}">{{p.1}} </a><br>
+				<a href ="{% url 'getplatform' p.1 %}">{{p.1}} </a><br>
 				</li>
 
 				{%endfor%}

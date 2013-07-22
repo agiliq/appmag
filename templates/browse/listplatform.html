@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+
+{% load url from future %}
+
 {% load pagination_tags %}
 {% block extrahead %}
 <title>Appmag.in - Apps for {{slug}}</title>
@@ -7,14 +10,14 @@
 
 			<ul id="crumbs">
 				<li>Browse by :</li>
-				<li><a href="{% url home %}">Category</a></li>
-				<li><a href = "{% url platform %}">Platform</a></li>
-				<li><a href = "{% url device %}">Device</a></li>
-				<li><a href = "{% url developer %}">Deveoper</a></li>
+				<li><a href="{% url 'home' %}">Category</a></li>
+				<li><a href = "{% url 'platform' %}">Platform</a></li>
+				<li><a href = "{% url 'device' %}">Device</a></li>
+				<li><a href = "{% url 'developer' %}">Deveoper</a></li>
 			</ul>
  
  
- <!--Now browsing by <a href="{% url platform %}">Platform</a><br>Browse by <a href = "{% url device %}">Device</a>&nbsp;<a href = "{% url developer %}">Developer</a>&nbsp;<a href = "{% url home %}">Category</a>
+ <!--Now browsing by <a href="{% url 'platform' %}">Platform</a><br>Browse by <a href = "{% url 'device' %}">Device</a>&nbsp;<a href = "{% url 'developer' %}">Developer</a>&nbsp;<a href = "{% url 'home' %}">Category</a>
 <br>-->
 {%autoescape off %}
 			{%if profile %}
@@ -23,7 +26,7 @@
 				{% for p in profile%}
 					<ul>
 						<li>
-							<img src= "{{p.1}}" width="140"/><br/><a href ="{% url getapplication1 slug p.2%}">{{p.0}} </a><br>
+							<img src= "{{p.1}}" width="140"/><br/><a href ="{% url 'getapplication1' slug p.2%}">{{p.0}} </a><br>
 						</li>
 					</ul>
 				{%endfor%}

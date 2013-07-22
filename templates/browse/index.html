@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+
+{% load url from future %}
+
 {% block extrahead %}
 <title> appmag.in - One stop shop for all app news, reviews and more.. </title>
 {% endblock %}
@@ -8,9 +11,9 @@
 
 		<ul id="crumbs">
 			<li>Browse by :</li>
-			<li><a href = "{% url reviews %}">Reviews</a></li>
-			<li><a href ="{% url home %}">Browse Apps</a></li>
-			<li><a href ="{% url discuss %}">Discuss</a></li>
+			<li><a href = "{% url 'reviews' %}">Reviews</a></li>
+			<li><a href ="{% url 'home' %}">Browse Apps</a></li>
+			<li><a href ="{% url 'discuss' %}">Discuss</a></li>
 			<!--<li><a href ="/search/">Search</a></li>-->
 		</ul>
 		<!-- SEARCH BAR STARTS -->
@@ -24,20 +27,20 @@
 		<!-- MOBILE PLATFORMS STARTS -->
 		<div id="mobile_platforms"> 
 			<div class="indi_mobile">
-				<div class="mobilogo"><a href = "{% url getplatform 'iPhone' %}"><img src="{{MEDIA_URL}}images/apple_icon.png" width="100px"/></a></div>
-				<a href = "{% url getplatform 'iPhone' %}">iPhone</a>
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'iPhone' %}"><img src="{{MEDIA_URL}}images/apple_icon.png" width="100px"/></a></div>
+				<a href = "{% url 'getplatform' 'iPhone' %}">iPhone</a>
 			</div>
 			<div class="indi_mobile">
-				<div class="mobilogo"><a href = "{% url getplatform 'Android' %}"><img src="{{MEDIA_URL}}images/android_icon.png" width="100px"/></a></div>
-				<a href = "{% url getplatform 'Android' %}">Android</a>
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'Android' %}"><img src="{{MEDIA_URL}}images/android_icon.png" width="100px"/></a></div>
+				<a href = "{% url 'getplatform' 'Android' %}">Android</a>
 			</div>
 			<div class="indi_mobile">
-				<div class="mobilogo"><a href = "{% url getplatform 'Blackberry' %}"><img src="{{MEDIA_URL}}images/blackberry_icon.png" width="100px"/></a></div>
-				<a href = "{% url getplatform 'Blackberry' %}">Blackberry</a>
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'Blackberry' %}"><img src="{{MEDIA_URL}}images/blackberry_icon.png" width="100px"/></a></div>
+				<a href = "{% url 'getplatform' 'Blackberry' %}">Blackberry</a>
 			</div>
 			<div class="indi_mobile">
-				<div class="mobilogo"><a href = "{% url getplatform 'Windows_Mobile' %}"><img src="{{MEDIA_URL}}images/windows_icon.png" width="100px"/></a></div>
-				<a href = "{% url getplatform 'Windows_Mobile' %}">Windows Phone</a>
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'Windows_Mobile' %}"><img src="{{MEDIA_URL}}images/windows_icon.png" width="100px"/></a></div>
+				<a href = "{% url 'getplatform' 'Windows_Mobile' %}">Windows Phone</a>
 			</div>		
 			<div class="clear"></div>			
 		</div>
