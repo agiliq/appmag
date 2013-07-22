@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+
+{% load url from future %}
+
 {% load browse_tags %}
 {%block extrahead%}
 	{% autoescape off %}
@@ -106,9 +109,9 @@
 	
 		<ul id="crumbs" >
 			<li>Browse by :</li>
-			<li><a href="{%url home%}">Category</a></li>
+			<li><a href="{%url 'home%}">Category</a></li>'
 			<li><a href = "{%url device%}">Device</a></li>
-			<li><a href = "{%url developer %}">Developer</a></li>
+			<li><a href = "{%url 'developer' %}">Developer</a></li>
 			<li><a href = "{%url platform%}">Platform</a></li>
 		</ul>
 <div id="app_detail">
@@ -131,16 +134,16 @@
 		<div id="price">Price : {{p.price}}</div>
 		<div id="infolist">
 			<ul>
-			<li><span >Category : </span> <a href = "{% url getcategory p.category.slug %}"> {{p.category.name}}</a></li>
+			<li><span >Category : </span> <a href = "{% url 'getcategory' p.category.slug %}"> {{p.category.name}}</a></li>
 			<li><span >Rating : </span>{{p.rating}}/5.0</li>
 			<li><span >Language : </span>English</li>
 		{%if also%}
         <li><span >Also for : </span>
 <!--//      Added to remove duplication, have to reset when fresh database is there.
 {% for each in also %}
-//          <a href ="{% url getapplication1 each.get_platform_display each.title %}">{{each.title}}<i>  for  </i>{{each.get_platform_display}}</li>
+//          <a href ="{% url 'getapplication1' each.get_platform_display each.title %}">{{each.title}}<i>  for  </i>{{each.get_platform_display}}</li>
 //           {% endfor %}-->
-          <a href ="{% url getapplication1 also.0.get_platform_display also.0.slug %}">{{also.0.title}}<i>  for  </i>{{also.0.get_platform_display}}</li>
+          <a href ="{% url 'getapplication1' also.0.get_platform_display also.0.slug %}">{{also.0.title}}<i>  for  </i>{{also.0.get_platform_display}}</li>
 
         {%endif%}</a>
 			<li><span >Devices : </span>
@@ -148,16 +151,16 @@
 			<b class = show_hide>show devices</a></b>
             <div class="slidingDiv">
             {%for dev in p.device.all%}
-			   <a href = "{% url getdevice dev.slug%}">{{dev.name}}</a>
+			   <a href = "{% url 'getdevice' dev.slug%}">{{dev.name}}</a>
 			{%endfor%}
             </div>
 {%else%}
             {%for dev in p.device.all%}
-			   <a href = "{% url getdevice dev.slug%}">{{dev.name}}</a>
+			   <a href = "{% url 'getdevice' dev.slug%}">{{dev.name}}</a>
 			{%endfor%}
                {%endif%}
                {%if p.developer.slug %}
-			<li><span >Developer : </span><a href="{% url getdeveloper p.developer.slug %}">{{p.developer}}</a></li>
+			<li><span >Developer : </span><a href="{% url 'getdeveloper' p.developer.slug %}">{{p.developer}}</a></li>
             {%endif%}
             {% if morelinks %}
 			<li><span >More Links : <br/></span>
@@ -174,7 +177,7 @@
 	<!-- LEFT CONTAINER ENDS -->
 <!-- DESCRIPTTION CONTAINER STARTS -->
 	<div id="app_description">
-<a href = "/"> Home</a> &raquo;<a href="{% url getplatform p.get_platform_display%}">{{p.get_platform_display}}</a>&raquo; <a href="{% url getcategory p.category.slug %}">{{p.category.name}}</a> &raquo; {{p.title}}	
+<a href = "/"> Home</a> &raquo;<a href="{% url 'getplatform' p.get_platform_display%}">{{p.get_platform_display}}</a>&raquo; <a href="{% url 'getcategory' p.category.slug %}">{{p.category.name}}</a> &raquo; {{p.title}}	
 		<h2>DESCRIPTION :</h2>
 		{{p.description}}
 	</div>
@@ -217,7 +220,7 @@
 	{% for app in developerlist%}		
 
 			<li>				
-				<a href = "{% url getapplication1 profile.0.get_platform_display app.2 %}"><img src="{{app.1}}" width="140" /><br/>{{app.0|slice:'40'}}<br></a>				
+				<a href = "{% url 'getapplication1' profile.0.get_platform_display app.2 %}"><img src="{{app.1}}" width="140" /><br/>{{app.0|slice:'40'}}<br></a>				
 			</li>
 	{%endfor%}
 		</ul>
@@ -233,7 +236,7 @@
 	<ul id="mycarousel" >
 	{% for app in related%}
 		<li>	
-			<a href = "{% url getapplication1 profile.0.get_platform_display app.2 %}"><img src="{{app.1}}"  width="140" /><br/>{{app.0|slice:'40'}}<br></a>
+			<a href = "{% url 'getapplication1' profile.0.get_platform_display app.2 %}"><img src="{{app.1}}"  width="140" /><br/>{{app.0|slice:'40'}}<br></a>
 		</li>
 	{%endfor%}
 	</ul>
