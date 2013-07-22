@@ -9,13 +9,15 @@
 {% endblock %}
 {% block content %}
 
+	
 		<ul id="crumbs">
 			<li>Browse by :</li>
-			<li><a href = "{% url 'reviews' %}">Reviews</a></li>
+			{% comment %}<li><a href = "{% url 'reviews' %}">Reviews</a></li>{% endcomment %}
 			<li><a href ="{% url 'home' %}">Browse Apps</a></li>
-			<li><a href ="{% url 'discuss' %}">Discuss</a></li>
+			{% comment %}<li><a href ="{% url 'discuss' %}">Discuss</a></li>{% endcomment %}
 			<!--<li><a href ="/search/">Search</a></li>-->
 		</ul>
+	
 		<!-- SEARCH BAR STARTS -->
 		<div id="searchbar">
 <form method="GET" action="/search" >
