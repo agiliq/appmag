@@ -1,3 +1,4 @@
+{% load url from future %}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -23,7 +24,7 @@
 <body>
 {% autoescape off%}
 	<div id="homebase">
-		<div id="logo"><a href="{% url index %}"><img src="{{MEDIA_URL}}images/appmag_logo.png" /></a></div>
+		<div id="logo"><a href="{% url 'index' %}"><img src="{{MEDIA_URL}}images/appmag_logo.png" /></a></div>
 			{% block topsearchbar %}
 			<!-- SEARCH BAR STARTS -->
 			<div id="searchbar_top">
