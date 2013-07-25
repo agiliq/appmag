@@ -15,10 +15,6 @@
 				<li><a href = "{% url 'device' %}">Device</a></li>
 				<li><a href = "{% url 'developer' %}">Deveoper</a></li>
 			</ul>
- 
- 
- <!--Now browsing by <a href="{% url 'platform' %}">Platform</a><br>Browse by <a href = "{% url 'device' %}">Device</a>&nbsp;<a href = "{% url 'developer' %}">Developer</a>&nbsp;<a href = "{% url 'home' %}">Category</a>
-<br>-->
 {%autoescape off %}
 			{%if profile %}
 			   {% autopaginate profile 25%}
