@@ -109,10 +109,10 @@
 	
 		<ul id="crumbs" >
 			<li>Browse by :</li>
-			<li><a href="{%url 'home%}">Category</a></li>'
-			<li><a href = "{%url device%}">Device</a></li>
+			<li><a href="{%url 'home' %}">Category</a></li>'
+			<li><a href = "{%url 'device' %}">Device</a></li>
 			<li><a href = "{%url 'developer' %}">Developer</a></li>
-			<li><a href = "{%url platform%}">Platform</a></li>
+			<li><a href = "{%url 'platform' %}">Platform</a></li>
 		</ul>
 <div id="app_detail">
 	<div id="app_header">
@@ -121,13 +121,6 @@
 		<div id="app_title">
 			<h1><a href ="/app/{{p.slug}}">{{p.title}} </a> <span>by {{p.developer}}<a href="/developer/{{p.developer.slug}}">   more from this developer</a></span></h1>
 		</div>
-		<div id="rater">
-		    <div id="rate">
-        {% for i in "0123456789" %}
-        <input name="adv1" type="radio" class="star"{% ifequal forloop.counter p.rating|rounded %} checked="checked"{% endifequal %} disabled="disabled" />
-        {% endfor %}
-        </div>       
-	</div>
 	<!-- LEFT CONTAINER STARTS -->
 	<div id="appinfo">
 		<div id="appicon"><img src="{{p.logo}}" width = "130" height = "130"/></div>
@@ -139,10 +132,10 @@
 			<li><span >Language : </span>English</li>
 		{%if also%}
         <li><span >Also for : </span>
-<!--//      Added to remove duplication, have to reset when fresh database is there.
+{%comment %} //      Added to remove duplication, have to reset when fresh database is there.
 {% for each in also %}
 //          <a href ="{% url 'getapplication1' each.get_platform_display each.title %}">{{each.title}}<i>  for  </i>{{each.get_platform_display}}</li>
-//           {% endfor %}-->
+//           {% endfor %}{% endcomment %}
           <a href ="{% url 'getapplication1' also.0.get_platform_display also.0.slug %}">{{also.0.title}}<i>  for  </i>{{also.0.get_platform_display}}</li>
 
         {%endif%}</a>

@@ -15,8 +15,6 @@
 				<li><a href = "{% url 'device' %}">Device</a></li>
 				<li><a href = "{% url 'developer' %}">Developer</a></li>
 			</ul>
-<!--Now browsing by <a href="{% url 'device' %}">Device</a><br>Browse by <a href = "{% url 'home' %}">Category</a>&nbsp;<a href = "{% url 'developer%}">Developer</a>&nbsp;<a' href = "{% url platform%}">Platform</a>
-<br>-->
 		<div class="matrix_grid">
 			{% autopaginate profile 24 %}
 			{% for p in profile%}
