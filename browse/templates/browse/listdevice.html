@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+{% load pagination_tags %}
+{% block extrahead %}
+<title>Appmag.in - Now showing apps for {{slug}}</title>
+{% endblock %}
+{% block content %}
+
+			<ul id="crumbs">
+				<li>Browse by :</li>
+				<li><a href="{% url 'home' %}">Category</a></li>
+				<li><a href = "{% url 'platform' %}">Platform</a></li>
+				<li><a href = "{% url 'device' %}">Device</a></li>
+				<li><a href = "{% url 'developer' %}">Developer</a></li>
+			</ul>
+		<div class="matrix_grid">
+			{% autopaginate profile 24 %}
+			{% for p in profile%}
+		<ul>
+			<li>
+				<img src= "{{p.1}}" width="140"/><br/><a href ="{% url 'getapplication1' platform p.2 %}">{{p.0|slice:'40'}} </a><br/>
+			</li>
+		</ul>
+		{%endfor%}
+		</div>
+		<div class="clear"></div>
+<center>
+    <b>{% paginate %}</b>
+</center>
+
+{% endblock %}

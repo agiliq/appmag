@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+{% block extrahead %}
+<title> appmag.in - One stop shop for all app news, reviews and more.. </title>
+{% endblock %}
+{% block topsearchbar %}
+{% endblock %}
+{% block content %}
+
+	
+		<ul id="crumbs">
+			<li>Browse by :</li>
+			{% comment %}<li><a href = "{% url 'reviews' %}">Reviews</a></li>{% endcomment %}
+			<li><a href ="{% url 'home' %}">Browse Apps</a></li>
+			{% comment %}<li><a href ="{% url 'discuss' %}">Discuss</a></li>{% endcomment %}
+			<!--<li><a href ="/search/">Search</a></li>-->
+		</ul>
+	
+		<!-- SEARCH BAR STARTS -->
+		<div id="searchbar">
+<form method="GET" action="/search" >
+<input type="text" name="q" id="textfield" class="searchfield">
+				<input type="submit" value="search" class="smallButton blackButton blueButton">
+                </form>
+		</div>
+		<!-- SEARCH BAR ENDS -->
+		<!-- MOBILE PLATFORMS STARTS -->
+		<div id="mobile_platforms"> 
+			<div class="indi_mobile">
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'iPhone' %}"><img src="{{MEDIA_URL}}images/apple_icon.png" width="100px"/></a></div>
+				<a href = "{% url 'getplatform' 'iPhone' %}">iPhone</a>
+			</div>
+			<div class="indi_mobile">
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'Android' %}"><img src="{{MEDIA_URL}}images/android_icon.png" width="100px"/></a></div>
+				<a href = "{% url 'getplatform' 'Android' %}">Android</a>
+			</div>
+			<div class="indi_mobile">
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'Blackberry' %}"><img src="{{MEDIA_URL}}images/blackberry_icon.png" width="100px"/></a></div>
+				<a href = "{% url 'getplatform' 'Blackberry' %}">Blackberry</a>
+			</div>
+			<div class="indi_mobile">
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'Windows_Mobile' %}"><img src="{{MEDIA_URL}}images/windows_icon.png" width="100px"/></a></div>
+				<a href = "{% url 'getplatform' 'Windows_Mobile' %}">Windows Phone</a>
+			</div>		
+			<div class="clear"></div>			
+		</div>
+		<!-- MOBILE PLATFORMS ENDS -->
+		<br/><br/>
+
+{% endblock %}

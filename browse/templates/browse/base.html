@@ -1,0 +1,43 @@
+{% load url from future %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/reset.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/typography.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/style.css" />
+<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/buttons.css" />
+<link href='http://fonts.googleapis.com/css?family=Tinos:regular,bold,bolditalic&v1' rel='stylesheet' type='text/css'>
+{% block extrahead %}
+	<link rel="stylesheet" href="{{MEDIA_URL}}css/jquery.ui.slider.css"> 
+	<link rel="stylesheet" href="{{MEDIA_URL}}css/jquery.ui.theme.css"> 
+	<script src="{{MEDIA_URL}}js/jquery-1.5.1.js"></script> 
+	<script src="{{MEDIA_URL}}js/jquery.ui.core.js"></script> 
+	<script src="{{MEDIA_URL}}js/jquery.ui.widget.js"></script> 
+	<script src="{{MEDIA_URL}}js/jquery.ui.mouse.js"></script> 
+	<script src="{{MEDIA_URL}}js/jquery.ui.slider.js"></script> 
+	<link rel="stylesheet" href="{{MEDIA_URL}}css/demo.css"> 
+{% endblock %}
+</head>
+
+<body>
+	<div id="homebase">
+		<div id="logo"><a href="{% url 'home' %}"><img src="{{MEDIA_URL}}images/appmag_logo.png" /></a></div>
+			{% block topsearchbar %}
+			<!-- SEARCH BAR STARTS -->
+			<div id="searchbar_top">
+<form method="POST" action="." >{% csrf_token %}
+<input type="text" name="q" id="textfield" class="searchfield">
+i				<input type="submit" value="search" class="smallButton blackButton blueButton">
+</form>
+			</div>
+			<!-- SEARCH BAR ENDS -->			
+			{% endblock %}
+			<div class="clear"></div>
+			
+			{% block content %}
+			{% endblock %}
+
+		<div id="footer">Copyright &copy; 2011 Appmag | Developed by <a href="http://afoniq.com/">Afoniq</a></div>
+	</div>
+</body>
+</html>
