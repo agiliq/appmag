@@ -14,6 +14,7 @@ REPO_PATH = "/home/agiliq/Work/appsite/"
 env.hosts = HOST_NAME
 env.user = USER
 env.directory = REPO_PATH
+env.port = 49169
 
 
 def restart():
@@ -41,6 +42,7 @@ def deploy():
     with settings(user=USER):
         with cd(env.directory):
             pull()
+            run("source ../bin/activate")
             migrate()
             syncdb()
             restart()
