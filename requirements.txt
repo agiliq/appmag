@@ -4,7 +4,7 @@ django-taggit
 django-pingback
 django-pagination==1.0.7
 BeautifulSoup
-django-haystack
+django-haystack==2.1.0
 django-socialauth
 django-oauth
 South
