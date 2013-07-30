@@ -2,7 +2,7 @@ from django.contrib import admin
 from browse.models import *
 
 
-class morelinksInline(admin.TabularInline):
+class MorelinksInline(admin.TabularInline):
     model = morelinks
     extra = 3
 
@@ -10,8 +10,7 @@ class morelinksInline(admin.TabularInline):
 class AppAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'developer', 'platform', 'price')
     search_fields = ('title', 'category__slug')
-    inlines = [morelinksInline]
-#    form = AppAdminForm
+    inlines = [MorelinksInline]
 
 admin.site.register(Developer)
 admin.site.register(Thumbnail)
