@@ -24,8 +24,7 @@
 	.scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
 	</style> 
 	<script> 
-    $.fn.rating.options.split = 2;
-	$(function() {
+    $(function() {
 		//scrollpane parts
 		var scrollPane = $( ".scroll-pane" ),
 			scrollContent = $( ".scroll-content" );
@@ -128,7 +127,6 @@
 		<div id="infolist">
 			<ul>
 			<li><span >Category : </span> <a href = "{% url 'getcategory' p.category.slug %}"> {{p.category.name}}</a></li>
-			<li><span >Rating : </span>{{p.rating}}/5.0</li>
 			<li><span >Language : </span>English</li>
 		{%if also%}
         <li><span >Also for : </span>

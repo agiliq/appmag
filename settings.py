@@ -63,7 +63,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/static/'
+STATIC_ROOT = 'static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -81,6 +81,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -174,7 +175,7 @@ LOGGING = {
 }
 
 COMPRESS_ROOT = STATIC_ROOT
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder')
+#STATICFILES_FINDERS = ('compressor.finders.CompressorFinder')
 
 from markupfield.markup import DEFAULT_MARKUP_TYPES
 DEFAULT_MARKUP_TYPE = "plain"
