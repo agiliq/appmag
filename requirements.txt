@@ -11,3 +11,4 @@ South
 django-compressor
 sorl-thumbnail
 django_google_analytics
+Whoosh==2.5.1
