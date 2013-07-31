@@ -7,9 +7,9 @@ from fabric.api import env
 from fabric.colors import green
 
 
-HOST_NAME = ['www.appmag.in']
-USER = "agiliq"
-REPO_PATH = "/home/agiliq/Work/appsite/"
+HOST_NAME = ['apps.in']
+USER = "appmag"
+REPO_PATH = "/home/appmag"
 
 env.hosts = HOST_NAME
 env.user = USER

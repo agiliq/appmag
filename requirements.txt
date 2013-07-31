@@ -1,11 +1,12 @@
+Django==1.5.1
 django-markupfield
 django-taggit
 django-pingback
+django-pagination==1.0.7
 BeautifulSoup
-django-haystack
-django-socialauth
-django-oauth
+-e git+https://github.com/toastdriven/django-haystack.git#egg=haystack
 South
 django-compressor
 sorl-thumbnail
 django_google_analytics
+Whoosh==2.5.1

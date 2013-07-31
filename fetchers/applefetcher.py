@@ -1,9 +1,11 @@
-import json,os,sys
-from os import path
+import json, os, sys
 sys.path.append(os.path.join(os.getcwd()))
 
-from browse.models import *
 from django.template.defaultfilters import slugify
+
+from browse.models import *
+
+
 image = open("detail.json").read()
 data = json.loads(image)
 
