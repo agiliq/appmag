@@ -8,5 +8,5 @@ BeautifulSoup
 South
 django-compressor
 sorl-thumbnail
-django_google_analytics
+django-googleanalytics
 Whoosh==2.5.1
