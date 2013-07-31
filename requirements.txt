@@ -5,8 +5,6 @@ django-pingback
 django-pagination==1.0.7
 BeautifulSoup
 -e git+https://github.com/toastdriven/django-haystack.git#egg=haystack
-django-socialauth
-django-oauth
 South
 django-compressor
 sorl-thumbnail
