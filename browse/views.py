@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader, RequestContext
 
-from browse.models import *
+from .models import *
 
 
 def index(request):
