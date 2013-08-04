@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.template import loader, RequestContext
 
 from .models import *
@@ -11,11 +12,12 @@ def index(request):
     return HttpResponse(t.render(c))
 
 
-def home(request):
+def home(request, template='browse/home.html'):
     profile = Category.objects.all()
-    t = loader.get_template('browse/home.html')
-    c = RequestContext(request, {'profile': profile})
-    return HttpResponse(t.render(c))
+    context = {'profile': profile}
+    return render(request,
+                  template,
+                  context)
 
 
 def device(request):
