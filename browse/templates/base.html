@@ -2,21 +2,21 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/reset.css" />
-<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/typography.css" />
-<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/style.css" />
-<link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}css/buttons.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typography.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/buttons.css" />
 <link href='http://fonts.googleapis.com/css?family=Tinos:regular,bold,bolditalic&v1' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="{{MEDIA_URL}}css/jquery.ui.slider.css"> 
-	<link rel="stylesheet" href="{{MEDIA_URL}}css/jquery.ui.theme.css"> 
-	<script src="{{MEDIA_URL}}js/jquery-1.5.1.js"></script> 
-	<script src="{{MEDIA_URL}}js/jquery.ui.core.js"></script> 
-	<script src="{{MEDIA_URL}}js/jquery.ui.widget.js"></script> 
-	<script src="{{MEDIA_URL}}js/jquery.ui.mouse.js"></script> 
-	<script src="{{MEDIA_URL}}js/jquery.ui.slider.js"></script> 
-	<script src="{{MEDIA_URL}}js/jquery.jcarousel.min.js"></script> 
-	<link rel="stylesheet" href="{{MEDIA_URL}}css/demo.css">
-    <link rel="shorcut icon" href="{{MEDIA_URL}}images/favicon.ico">
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.ui.slider.css"> 
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.ui.theme.css"> 
+	<script src="{{ STATIC_URL }}js/jquery-1.5.1.js"></script> 
+	<script src="{{ STATIC_URL }}js/jquery.ui.core.js"></script> 
+	<script src="{{ STATIC_URL }}js/jquery.ui.widget.js"></script> 
+	<script src="{{ STATIC_URL }}js/jquery.ui.mouse.js"></script> 
+	<script src="{{ STATIC_URL }}js/jquery.ui.slider.js"></script> 
+	<script src="{{ STATIC_URL }}js/jquery.jcarousel.min.js"></script> 
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/demo.css">
+    <link rel="shorcut icon" href="{{ STATIC_URL }}images/favicon.ico">
 {% block extrahead %}
 {% endblock %}
 </head>
@@ -24,7 +24,7 @@
 <body>
 {% autoescape off%}
 	<div id="homebase">
-		<div id="logo"><a href="{% url 'index' %}"><img src="{{MEDIA_URL}}images/appmag_logo.png" /></a></div>
+		<div id="logo"><a href="{% url 'index' %}"><img src="{{ STATIC_URL }}images/appmag_logo.png" /></a></div>
 			{% block topsearchbar %}
 			<!-- SEARCH BAR STARTS -->
 			<div id="searchbar_top">
