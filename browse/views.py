@@ -1,44 +1,65 @@
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.template import loader, RequestContext
+from django.views.generic.base import TemplateView
 
 from .models import *
 
 
-def index(request):
-    profile = Category.objects.all()
-    t = loader.get_template('browse/index.html')
-    c = RequestContext(request, {'profile': profile})
-    return HttpResponse(t.render(c))
+class BaseView(TemplateView):
+
+    def get_context_data(self, **kwargs):
+        context = super(BaseView, self).get_context_data(**kwargs)
+        profile = Category.objects.all()
+        context['profile'] = profile
+        return context
 
 
-def home(request, template='browse/home.html'):
-    profile = Category.objects.all()
-    context = {'profile': profile}
-    return render(request,
-                  template,
-                  context)
+class IndexView(BaseView):
+    template_name = 'browse/index.html'
+
+index = IndexView.as_view()
 
 
-def device(request):
-    profile = Device.objects.all()
-    t = loader.get_template('browse/device.html')
-    c = RequestContext(request, {'profile': profile})
-    return HttpResponse(t.render(c))
+class HomeView(BaseView):
+    template_name = 'browse/home.html'
+
+home = HomeView.as_view()
 
 
-def developer(request):
-    profile = Developer.objects.all()
-    t = loader.get_template('browse/developer.html')
-    c = RequestContext(request, {'profile': profile})
-    return HttpResponse(t.render(c))
+class DeviceView(TemplateView):
+    template_name = 'browse/device.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DeviceView, self).get_context_data(**kwargs)
+        profile = Device.objects.all()
+        context['profile'] = profile
+        return context
+
+device = DeviceView.as_view()
 
 
-def platform(request):
-    profile = PLATFORMS
-    t = loader.get_template('browse/platform.html')
-    c = RequestContext(request, {'profile': profile})
-    return HttpResponse(t.render(c))
+class DeveloperView(TemplateView):
+    template_name = 'browse/developer.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DeveloperView, self).get_context_data(**kwargs)
+        profile = Developer.objects.all()
+        context['profile'] = profile
+        return context
+
+developer = DeveloperView.as_view()
+
+
+class PlatformView(TemplateView):
+    template_name = 'browse/platform.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PlatformView, self).get_context_data(**kwargs)
+        profile = PLATFORMS
+        context['profile'] = profile
+        return context
+
+platform = PlatformView.as_view()
 
 
 def get_list_category(request, slug):
