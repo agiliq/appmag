@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.template import loader, RequestContext
+from django.shortcuts import render
 from django.views.generic.base import TemplateView
+from django.views.generic.base import View
 
 from .models import *
 
@@ -62,69 +64,83 @@ class PlatformView(TemplateView):
 platform = PlatformView.as_view()
 
 
-def get_list_category(request, slug):
-    profile = App.objects.values_list('title',
-                                      'logo', 'slug',
-                                      'platform').filter(slug__isnull=False).exclude(slug__exact='').filter(category__slug=slug).distinct()
-    pro = App.objects.filter(slug__isnull=False).exclude(slug__exact='').filter(platform=profile[0][3]).distinct()
-    platform = pro[0].get_platform_display()  #_display()
-    dev = Category.objects.filter(slug=slug)[0]
-    slug = dev.name
-    t = loader.get_template('browse/listcategory.html')
-    c = RequestContext(request, {'profile': profile, 'slug': slug, 'platform': platform})
-    return HttpResponse(t.render(c))
+class CategoryView(View):
+    template_name = 'browse/listcategory.html'
+
+    def get(self, request, slug, **kwargs):
+        profile = App.objects.values_list('title',
+                                          'logo', 'slug',
+                                          'platform').filter(slug__isnull=False).exclude(slug__exact='').filter(category__slug=slug).distinct()
+        pro = App.objects.filter(slug__isnull=False).exclude(slug__exact='').filter(platform=profile[0][3]).distinct()
+        platform = pro[0].get_platform_display()
+        dev = Category.objects.filter(slug=slug)[0]
+        slug = dev.name
+        context = {'profile': profile, 'slug': slug, 'platform': platform}
+        return render(request, self.template_name, context)
 
 
-def get_list_device(request, slug):
-    profile = App.objects.values_list('title',
-                                      'logo',
-                                      'slug',
-                                      'platform').filter(slug__isnull=False).exclude(slug__exact='').filter(device__slug=slug).distinct()
-    pro = App.objects.filter(slug__isnull=False).exclude(slug__exact='').filter(platform=profile[0][3]).distinct()
-    platform = pro[0].get_platform_display() #_display()
-    dev = Device.objects.filter(slug=slug)[0]
-    slug = dev.name
-    t = loader.get_template('browse/listdevice.html')
-    c = RequestContext(request, {'profile': profile, 'slug': slug, 'platform': platform})
-    return HttpResponse(t.render(c))
+get_list_category = CategoryView.as_view()
 
 
-def get_list_developer(request, slug):
-    profile = App.objects.values_list('title',
-                                      'logo',
-                                      'slug',
-                                      'platform').filter(slug__isnull=False).exclude(slug__exact='').filter(developer__slug=slug).distinct()
-    pro = App.objects.filter(slug__isnull=False).exclude(slug__exact='').filter(platform=profile[0][3]).distinct()
-    platform = pro[0].get_platform_display() #_display()
-    dev = Developer.objects.filter(slug=slug)[0]
-    slug = dev.name
-    t = loader.get_template('browse/listdeveloper.html')
-    c = RequestContext(request, {'profile': profile, 'slug': slug, 'platform': platform})
-    return HttpResponse(t.render(c))
+class ListdeviceView(View):
+    template_name = 'browse/listdevice.html'
+
+    def get(self, request, slug, **kwargs):
+        profile = App.objects.values_list('title',
+                                          'logo',
+                                          'slug',
+                                          'platform').filter(slug__isnull=False).exclude(slug__exact='').filter(device__slug=slug).distinct()
+        pro = App.objects.filter(slug__isnull=False).exclude(slug__exact='').filter(platform=profile[0][3]).distinct()
+        platform = pro[0].get_platform_display()
+        dev = Device.objects.filter(slug=slug)[0]
+        slug = dev.name
+        context = {'profile': profile, 'slug': slug, 'platform': platform}
+        return render(request, self.template_name, context)
+
+get_list_device = ListdeviceView.as_view()
 
 
-def get_list_platform(request, slug):
-    #print slug
-    plat = "AP"
-    if slug == "Android":
-        plat = "AN"
-    if slug == "iPhone":
+class ListdeveloperView(View):
+    template_name = 'browse/listdeveloper.html'
+
+    def get(self, request, slug, **kwargs):
+        profile = App.objects.values_list('title',
+                                          'logo',
+                                          'slug',
+                                          'platform').filter(slug__isnull=False).exclude(slug__exact='').filter(developer__slug=slug).distinct()
+        pro = App.objects.filter(slug__isnull=False).exclude(slug__exact='').filter(platform=profile[0][3]).distinct()
+        platform = pro[0].get_platform_display()
+        dev = Developer.objects.filter(slug=slug)[0]
+        slug = dev.name
+        context = {'profile': profile, 'slug': slug, 'platform': platform}
+        return render(request, self.template_name, context)
+
+get_list_developer = ListdeveloperView.as_view()
+
+
+class ListplatformView(View):
+    template_name = 'browse/listplatform.html'
+
+    def get(self, request, slug, **kwargs):
         plat = "AP"
-    if slug == "Blackberry":
-        plat = "BB"
-    if slug == "Windows_Mobile":
-        plat = "WM"
+        if slug == "Android":
+            plat = "AN"
+        if slug == "iPhone":
+            plat = "AP"
+        if slug == "Blackberry":
+            plat = "BB"
+        if slug == "Windows_Mobile":
+            plat = "WM"
 
-    profile = App.objects.values_list('title',
-                                      'logo',
-                                      'slug').filter(slug__isnull=False).exclude(slug__exact='').filter(platform=plat).distinct()
-    pro = App.objects.filter(slug__isnull=False).exclude(slug__exact='').filter(platform=plat).distinct()
-    platform = pro[0].get_platform_display() #_display()
-    #print platform
-    t = loader.get_template('browse/listplatform.html')
-    c = RequestContext(request, {'profile': profile, 'slug': slug, 'platform': platform})
-    return HttpResponse(t.render(c))
-   #used for old url scheme
+        profile = App.objects.values_list('title',
+                                          'logo',
+                                          'slug').filter(slug__isnull=False).exclude(slug__exact='').filter(platform=plat).distinct()
+        pro = App.objects.filter(slug__isnull=False).exclude(slug__exact='').filter(platform=plat).distinct()
+        platform = pro[0].get_platform_display()
+        context = {'profile': profile, 'slug': slug, 'platform': platform}
+        return render(request, self.template_name, context)
+
+get_list_platform = ListplatformView.as_view()
 
 
 def get_app(request, id):
