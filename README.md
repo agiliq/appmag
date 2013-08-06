@@ -19,11 +19,11 @@ Installation:
 
 Features:
 -------------------
-
 - List of Platforms.
 - Categories.
 - Developers.
 - Device.
+- Related Apps
 - Search basing on users need.
 - Availability of all leading platforms.
 
