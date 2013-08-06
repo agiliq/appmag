@@ -1,5 +1,3 @@
-from django.http import HttpResponse
-from django.template import loader, RequestContext
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.base import View
@@ -143,44 +141,54 @@ class ListplatformView(View):
 get_list_platform = ListplatformView.as_view()
 
 
-def get_app(request, id):
-    profile = App.objects.filter(slug=id)[:1]
-    developerlist = App.objects.values_list('title',
-                                            'logo',
-                                            'slug').filter(slug__isnull=False).exclude(slug__exact='').exclude(title=profile[0].title).filter(developer=profile[0].developer).order_by('?').distinct()[:10]
-    related = App.objects.values_list('title',
-                                      'logo',
-                                      'slug').filter(slug__isnull=False).exclude(slug__exact='').exclude(title=profile[0].title).filter(category=profile[0].category).filter(platform=profile[0].platform).order_by('?').distinct()[:10]
-    more = morelinks.objects.filter(app__slug=id)
-    t = loader.get_template('browse/appdetails.html')
-    c = RequestContext(request, {'profile': profile, 'developerlist': developerlist, 'related': related, 'morelinks': more})
-    return HttpResponse(t.render(c))
-    # new url scheme
+class GetappView(View):
+    template_name = 'browse/appdetails.html'
+
+    def get(self, request, id):
+        profile = App.objects.filter(slug=id)[:1]
+        developerlist = App.objects.values_list('title',
+                                                'logo',
+                                                'slug').filter(slug__isnull=False).exclude(slug__exact='').exclude(title=profile[0].title).filter(developer=profile[0].developer).order_by('?').distinct()[:10]
+        related = App.objects.values_list('title',
+                                          'logo',
+                                          'slug').filter(slug__isnull=False).exclude(slug__exact='').exclude(title=profile[0].title).filter(category=profile[0].category).filter(platform=profile[0].platform).order_by('?').distinct()[:10]
+        more = morelinks.objects.filter(app__slug=id)
+        context = {'profile': profile,
+                   'developerlist': developerlist,
+                   'related': related,
+                   'morelinks': more}
+        return render(request, self.template_name, context)
+
+get_app = GetappView.as_view()
 
 
-def get_app1(request, id, platform):
-    plat = "AP"
-    if platform == "Android":
-        plat = "AN"
-    if platform == "iPhone":
+class Getapp1View(View):
+    template_name = 'browse/appdetails.html'
+
+    def get(self, request, id, platform, **kwargs):
         plat = "AP"
-    if platform == "Blackberry":
-        plat = "BB"
-    if platform == "Windows_Mobile":
-        plat = "WM"
-    profile = App.objects.filter(slug=id).filter(platform=plat)[:1]
-    developerlist = App.objects.values_list('title',
-                                            'logo',
-                                            'slug').filter(slug__isnull=False).exclude(slug__exact='').exclude(title=profile[0].title).filter(developer=profile[0].developer).order_by('?').distinct()[:10]
-    related = App.objects.values_list('title',
-                                      'logo',
-                                      'slug').filter(slug__isnull=False).exclude(slug__exact='').exclude(title=profile[0].title).filter(category=profile[0].category).filter(platform=profile[0].platform).order_by('?').distinct()[:10]
-    also = App.objects.filter(title=profile[0].title).exclude(id=profile[0].id).exclude(platform=profile[0].platform)
-    more = morelinks.objects.filter(app__id=profile[0].id)
-    t = loader.get_template('browse/appdetails.html')
-    c = RequestContext(request, {'profile': profile,
-                                 'developerlist': developerlist,
-                                 'related': related,
-                                 'morelinks': more,
-                                 'also': also})
-    return HttpResponse(t.render(c))
+        if platform == "Android":
+            plat = "AN"
+        if platform == "iPhone":
+            plat = "AP"
+        if platform == "Blackberry":
+            plat = "BB"
+        if platform == "Windows_Mobile":
+            plat = "WM"
+        profile = App.objects.filter(slug=id).filter(platform=plat)[:1]
+        developerlist = App.objects.values_list('title',
+                                                'logo',
+                                                'slug').filter(slug__isnull=False).exclude(slug__exact='').exclude(title=profile[0].title).filter(developer=profile[0].developer).order_by('?').distinct()[:10]
+        related = App.objects.values_list('title',
+                                          'logo',
+                                          'slug').filter(slug__isnull=False).exclude(slug__exact='').exclude(title=profile[0].title).filter(category=profile[0].category).filter(platform=profile[0].platform).order_by('?').distinct()[:10]
+        also = App.objects.filter(title=profile[0].title).exclude(id=profile[0].id).exclude(platform=profile[0].platform)
+        more = morelinks.objects.filter(app__id=profile[0].id)
+        context = {'profile': profile,
+                   'developerlist': developerlist,
+                   'related': related,
+                   'morelinks': more,
+                   'also': also}
+        return render(request, self.template_name, context)
+
+get_app1 = Getapp1View.as_view()
