@@ -63,7 +63,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/static/'
+STATIC_ROOT = 'static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -81,6 +81,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -108,6 +109,15 @@ ROOT_URLCONF = 'urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wsgi.application'
 
+TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.request")
+
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), "templates"),
     os.path.join(os.path.dirname(__file__), "templates/browse")
@@ -128,7 +138,6 @@ INSTALLED_APPS = (
     'compressor',
     'google_analytics',
     'sorl.thumbnail',
-    'openid_consumer',
     'pagination',
     'haystack',
     'browse',
@@ -167,7 +176,7 @@ LOGGING = {
 }
 
 COMPRESS_ROOT = STATIC_ROOT
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder')
+#STATICFILES_FINDERS = ('compressor.finders.CompressorFinder')
 
 from markupfield.markup import DEFAULT_MARKUP_TYPES
 DEFAULT_MARKUP_TYPE = "plain"

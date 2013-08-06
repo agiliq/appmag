@@ -29,19 +29,19 @@
 		<!-- MOBILE PLATFORMS STARTS -->
 		<div id="mobile_platforms"> 
 			<div class="indi_mobile">
-				<div class="mobilogo"><a href = "{% url 'getplatform' 'iPhone' %}"><img src="{{MEDIA_URL}}images/apple_icon.png" width="100px"/></a></div>
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'iPhone' %}"><img src="{{ STATIC_URL }}images/apple_icon.png" width="100px"/></a></div>
 				<a href = "{% url 'getplatform' 'iPhone' %}">iPhone</a>
 			</div>
 			<div class="indi_mobile">
-				<div class="mobilogo"><a href = "{% url 'getplatform' 'Android' %}"><img src="{{MEDIA_URL}}images/android_icon.png" width="100px"/></a></div>
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'Android' %}"><img src="{{ STATIC_URL }}images/android_icon.png" width="100px"/></a></div>
 				<a href = "{% url 'getplatform' 'Android' %}">Android</a>
 			</div>
 			<div class="indi_mobile">
-				<div class="mobilogo"><a href = "{% url 'getplatform' 'Blackberry' %}"><img src="{{MEDIA_URL}}images/blackberry_icon.png" width="100px"/></a></div>
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'Blackberry' %}"><img src="{{ STATIC_URL }}images/blackberry_icon.png" width="100px"/></a></div>
 				<a href = "{% url 'getplatform' 'Blackberry' %}">Blackberry</a>
 			</div>
 			<div class="indi_mobile">
-				<div class="mobilogo"><a href = "{% url 'getplatform' 'Windows_Mobile' %}"><img src="{{MEDIA_URL}}images/windows_icon.png" width="100px"/></a></div>
+				<div class="mobilogo"><a href = "{% url 'getplatform' 'Windows_Mobile' %}"><img src="{{ STATIC_URL }}images/windows_icon.png" width="100px"/></a></div>
 				<a href = "{% url 'getplatform' 'Windows_Mobile' %}">Windows Phone</a>
 			</div>		
 			<div class="clear"></div>			

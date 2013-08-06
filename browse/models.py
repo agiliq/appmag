@@ -1,20 +1,13 @@
 from django.db import models
 
-RATINGS = (
-        ((0), ('Not yet Rated')),
-        ((1), ('Poor')),
-        ((2), ('Average')),
-        ((3), ('Above Average')),
-        ((4), ('Good')),
-        ((5), ('Very Good')),
-            )
-
 PLATFORMS = (
-        (('AN'), ('Android')),
-        (('AP'), ('iPhone')),
-        (('BB'), ('Blackberry')),
-        (('WM'), ('Windows_Mobile')),
-            )
+    (('AN'), ('Android')),
+    (('AP'), ('iPhone')),
+    (('BB'), ('Blackberry')),
+    (('WM'), ('Windows_Mobile')),
+)
+
+
 class Developer(models.Model):
     name = models.CharField("Developer", max_length=200)
     slug = models.CharField("Slug", max_length=50)
@@ -22,11 +15,13 @@ class Developer(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Thumbnail(models.Model):
     image = models.URLField("Thumbnail")
 
     def __unicode__(self):
         return self.image
+
 
 class Device(models.Model):
     name = models.CharField("Device Name", max_length=50)
@@ -34,6 +29,7 @@ class Device(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class Category(models.Model):
     name = models.CharField("Catagory", max_length=100)
@@ -43,22 +39,19 @@ class Category(models.Model):
         verbose_name = "Category"
         verbose_name_plural = "Categories"
 
-
     def __unicode__(self):
         return self.slug
 
-        
-        
+
 class App(models.Model):
     title = models.CharField("Title", max_length=250)
     slug = models.CharField("Slug", max_length=250)
     description = models.TextField("Description", max_length=10000)
-    rating = models.CharField("Rating", max_length=4, default= '0', null=True, blank=True)
     developer = models.ForeignKey(Developer, verbose_name="Developer", null=True, blank=True)
     url = models.URLField("Link")
     logo = models.URLField("Logo")
-    thumbnails = models.ManyToManyField(Thumbnail, null = True, blank = True)
-    price = models.CharField("Price",max_length =10, default="FREE", null=True, blank=True)
+    thumbnails = models.ManyToManyField(Thumbnail, null=True, blank=True)
+    price = models.CharField("Price", max_length=10, default="FREE", null=True, blank=True)
     device = models.ManyToManyField(Device, related_name="device")
     category = models.ForeignKey(Category, related_name="category")
     platform = models.CharField("Platform", choices=PLATFORMS, max_length=2)
@@ -66,6 +59,7 @@ class App(models.Model):
     def __unicode__(self):
         return self.title
 
+
 class morelinks(models.Model):
-    link = models.CharField("Link",max_length=500)
+    link = models.CharField("Link", max_length=500)
     app = models.ForeignKey(App, related_name="morelinks")
